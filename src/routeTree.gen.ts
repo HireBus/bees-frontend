@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root';
 import { Route as PublicLayoutImport } from './routes/_public/layout';
 import { Route as ProtectedLayoutImport } from './routes/_protected/layout';
 import { Route as PublicIndexImport } from './routes/_public/index';
+import { Route as PublicTakeImport } from './routes/_public/take';
 import { Route as ProtectedSampleImport } from './routes/_protected/sample';
 
 // Create/Update Routes
@@ -31,6 +32,12 @@ const ProtectedLayoutRoute = ProtectedLayoutImport.update({
 const PublicIndexRoute = PublicIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicLayoutRoute,
+} as any);
+
+const PublicTakeRoute = PublicTakeImport.update({
+  id: '/take',
+  path: '/take',
   getParentRoute: () => PublicLayoutRoute,
 } as any);
 
@@ -65,6 +72,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProtectedSampleImport;
       parentRoute: typeof ProtectedLayoutImport;
     };
+    '/_public/take': {
+      id: '/_public/take';
+      path: '/take';
+      fullPath: '/take';
+      preLoaderRoute: typeof PublicTakeImport;
+      parentRoute: typeof PublicLayoutImport;
+    };
     '/_public/': {
       id: '/_public/';
       path: '/';
@@ -90,10 +104,12 @@ const ProtectedLayoutRouteWithChildren = ProtectedLayoutRoute._addFileChildren(
 );
 
 interface PublicLayoutRouteChildren {
+  PublicTakeRoute: typeof PublicTakeRoute;
   PublicIndexRoute: typeof PublicIndexRoute;
 }
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
+  PublicTakeRoute: PublicTakeRoute,
   PublicIndexRoute: PublicIndexRoute,
 };
 
@@ -102,12 +118,14 @@ const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(PublicL
 export interface FileRoutesByFullPath {
   '': typeof PublicLayoutRouteWithChildren;
   '/sample': typeof ProtectedSampleRoute;
+  '/take': typeof PublicTakeRoute;
   '/': typeof PublicIndexRoute;
 }
 
 export interface FileRoutesByTo {
   '': typeof ProtectedLayoutRouteWithChildren;
   '/sample': typeof ProtectedSampleRoute;
+  '/take': typeof PublicTakeRoute;
   '/': typeof PublicIndexRoute;
 }
 
@@ -116,15 +134,22 @@ export interface FileRoutesById {
   '/_protected': typeof ProtectedLayoutRouteWithChildren;
   '/_public': typeof PublicLayoutRouteWithChildren;
   '/_protected/sample': typeof ProtectedSampleRoute;
+  '/_public/take': typeof PublicTakeRoute;
   '/_public/': typeof PublicIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/sample' | '/';
+  fullPaths: '' | '/sample' | '/take' | '/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '' | '/sample' | '/';
-  id: '__root__' | '/_protected' | '/_public' | '/_protected/sample' | '/_public/';
+  to: '' | '/sample' | '/take' | '/';
+  id:
+    | '__root__'
+    | '/_protected'
+    | '/_public'
+    | '/_protected/sample'
+    | '/_public/take'
+    | '/_public/';
   fileRoutesById: FileRoutesById;
 }
 
@@ -161,12 +186,17 @@ export const routeTree = rootRoute
     "/_public": {
       "filePath": "_public/layout.tsx",
       "children": [
+        "/_public/take",
         "/_public/"
       ]
     },
     "/_protected/sample": {
       "filePath": "_protected/sample.tsx",
       "parent": "/_protected"
+    },
+    "/_public/take": {
+      "filePath": "_public/take.tsx",
+      "parent": "/_public"
     },
     "/_public/": {
       "filePath": "_public/index.tsx",

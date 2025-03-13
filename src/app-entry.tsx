@@ -1,9 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
 import { Toaster } from './components/ui/toast/sonner';
 import { AuthProvider } from './contexts/auth';
 import { BeesApiClientProvider } from './contexts/bees-api-client';
+import { LayoutsProvider } from './contexts/layouts';
 import { ThemeProvider } from './contexts/theme';
 import { ToastClientProvider } from './contexts/toast-client';
 import './global.css';
@@ -31,17 +31,18 @@ declare module '@tanstack/react-router' {
 export function App() {
   return (
     <ThemeProvider defaultTheme="light">
-      <QueryClientProvider client={queryClient}>
-        <ToastClientProvider>
-          <BeesApiClientProvider>
-            <AuthProvider>
-              <RouterProvider router={router} />
-              <ReactQueryDevtools initialIsOpen={false} />
-              <Toaster position="top-right" />
-            </AuthProvider>
-          </BeesApiClientProvider>
-        </ToastClientProvider>
-      </QueryClientProvider>
+      <LayoutsProvider>
+        <QueryClientProvider client={queryClient}>
+          <ToastClientProvider>
+            <BeesApiClientProvider>
+              <AuthProvider>
+                <RouterProvider router={router} />
+                <Toaster position="top-right" />
+              </AuthProvider>
+            </BeesApiClientProvider>
+          </ToastClientProvider>
+        </QueryClientProvider>
+      </LayoutsProvider>
     </ThemeProvider>
   );
 }

@@ -1,4 +1,8 @@
-import { HeadContent, Link, Outlet, createRootRoute } from '@tanstack/react-router';
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
+import { cn } from '@/lib/utils';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { HeadContent, Outlet, createRootRoute, useRouterState } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import '../global.css';
 
@@ -34,26 +38,36 @@ export const Route = createRootRoute({
 });
 
 function RootPage() {
-  const currentYear = new Date().getFullYear();
+  const routerState = useRouterState();
+  const pathname = routerState.location.pathname;
+
+  const isIndexPage = pathname === '/';
+  const bgColor = isIndexPage ? 'bg-[#F8F9FF]' : undefined;
 
   return (
     <>
       <HeadContent />
-      <div className="relative grid min-h-screen grid-rows-[1fr_auto]">
-        <main className="h-full">
-          <Outlet />
+      <div className="grid min-h-screen">
+        <main className="grid h-full grid-rows-[auto_1fr_auto]">
+          <Navbar className={bgColor} />
+          <main className={cn('h-full w-full', bgColor)}>
+            <Outlet />
+          </main>
+          <Footer className={bgColor} />
         </main>
-        <footer className="absolute bottom-0 flex w-full items-center justify-between px-10 py-4 text-sm text-gray-600">
-          <div>© {currentYear} Behavioral Essentials</div>
-          <div>
-            Need Help?{' '}
-            <Link to="/" className="font-medium text-primary hover:underline">
-              Contact support@behavioralessentials.com
-            </Link>
-          </div>
-        </footer>
-        {process.env.NODE_ENV === 'development' && <TanStackRouterDevtools />}
       </div>
+      <TanStackDevtools />
+    </>
+  );
+}
+
+function TanStackDevtools() {
+  if (process.env.NODE_ENV !== 'development') return null;
+
+  return (
+    <>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <TanStackRouterDevtools />
     </>
   );
 }
