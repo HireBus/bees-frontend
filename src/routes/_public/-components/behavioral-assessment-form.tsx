@@ -22,7 +22,6 @@ const behavioralAssessmentSchema = z.object({
 type BehavioralAssessmentFormValues = z.infer<typeof behavioralAssessmentSchema>;
 
 export function BehavioralAssessmentForm() {
-  // Initialize form with React Hook Form and Zod resolver
   const form = useForm<BehavioralAssessmentFormValues>({
     resolver: zodResolver(behavioralAssessmentSchema),
     defaultValues: {
