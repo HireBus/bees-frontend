@@ -16,8 +16,9 @@ coverage/
 .env.*
 .env-*
 
-**/data/core
-**/data/index.ts
-**/data/*.gen.ts
+# auto-generated
+**/data/**/core/**
+**/data/**/*.gen.ts
+**/data/**/index.ts
 
 src/routeTree.gen.ts
