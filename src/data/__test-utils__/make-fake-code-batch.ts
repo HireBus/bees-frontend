@@ -1,4 +1,4 @@
-import { type CodeBatch } from '@/data/bees';
+import { type CodeBatch, type GetCodeBatchesSearchResponse } from '@/data/bees';
 import { v4 as uuidv4 } from 'uuid';
 
 export function makeFakeCodeBatch(overrides?: Partial<CodeBatch>): CodeBatch {
@@ -11,7 +11,7 @@ export function makeFakeCodeBatch(overrides?: Partial<CodeBatch>): CodeBatch {
     total_generated_codes: Math.floor(Math.random() * 100) + 1,
     generated_by_id: Math.floor(Math.random() * 10) + 1,
     ...overrides,
-  };
+  } satisfies CodeBatch;
 }
 
 export function makeFakeCodeBatchesResponse(
@@ -26,5 +26,5 @@ export function makeFakeCodeBatchesResponse(
     records: Array.from({ length: count }, () => makeFakeCodeBatch()),
     total_records: count,
     ...overrides,
-  };
+  } satisfies GetCodeBatchesSearchResponse;
 }
