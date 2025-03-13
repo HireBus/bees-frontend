@@ -15,7 +15,6 @@ import { Route as PublicLayoutImport } from './routes/_public/layout';
 import { Route as ProtectedLayoutImport } from './routes/_protected/layout';
 import { Route as PublicIndexImport } from './routes/_public/index';
 import { Route as ProtectedSampleImport } from './routes/_protected/sample';
-import { Route as PublicRegisterIndexImport } from './routes/_public/register/index';
 
 // Create/Update Routes
 
@@ -39,12 +38,6 @@ const ProtectedSampleRoute = ProtectedSampleImport.update({
   id: '/sample',
   path: '/sample',
   getParentRoute: () => ProtectedLayoutRoute,
-} as any);
-
-const PublicRegisterIndexRoute = PublicRegisterIndexImport.update({
-  id: '/register/',
-  path: '/register/',
-  getParentRoute: () => PublicLayoutRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -79,13 +72,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicIndexImport;
       parentRoute: typeof PublicLayoutImport;
     };
-    '/_public/register/': {
-      id: '/_public/register/';
-      path: '/register';
-      fullPath: '/register';
-      preLoaderRoute: typeof PublicRegisterIndexImport;
-      parentRoute: typeof PublicLayoutImport;
-    };
   }
 }
 
@@ -105,12 +91,10 @@ const ProtectedLayoutRouteWithChildren = ProtectedLayoutRoute._addFileChildren(
 
 interface PublicLayoutRouteChildren {
   PublicIndexRoute: typeof PublicIndexRoute;
-  PublicRegisterIndexRoute: typeof PublicRegisterIndexRoute;
 }
 
 const PublicLayoutRouteChildren: PublicLayoutRouteChildren = {
   PublicIndexRoute: PublicIndexRoute,
-  PublicRegisterIndexRoute: PublicRegisterIndexRoute,
 };
 
 const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(PublicLayoutRouteChildren);
@@ -119,14 +103,12 @@ export interface FileRoutesByFullPath {
   '': typeof PublicLayoutRouteWithChildren;
   '/sample': typeof ProtectedSampleRoute;
   '/': typeof PublicIndexRoute;
-  '/register': typeof PublicRegisterIndexRoute;
 }
 
 export interface FileRoutesByTo {
   '': typeof ProtectedLayoutRouteWithChildren;
   '/sample': typeof ProtectedSampleRoute;
   '/': typeof PublicIndexRoute;
-  '/register': typeof PublicRegisterIndexRoute;
 }
 
 export interface FileRoutesById {
@@ -135,21 +117,14 @@ export interface FileRoutesById {
   '/_public': typeof PublicLayoutRouteWithChildren;
   '/_protected/sample': typeof ProtectedSampleRoute;
   '/_public/': typeof PublicIndexRoute;
-  '/_public/register/': typeof PublicRegisterIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/sample' | '/' | '/register';
+  fullPaths: '' | '/sample' | '/';
   fileRoutesByTo: FileRoutesByTo;
-  to: '' | '/sample' | '/' | '/register';
-  id:
-    | '__root__'
-    | '/_protected'
-    | '/_public'
-    | '/_protected/sample'
-    | '/_public/'
-    | '/_public/register/';
+  to: '' | '/sample' | '/';
+  id: '__root__' | '/_protected' | '/_public' | '/_protected/sample' | '/_public/';
   fileRoutesById: FileRoutesById;
 }
 
@@ -186,8 +161,7 @@ export const routeTree = rootRoute
     "/_public": {
       "filePath": "_public/layout.tsx",
       "children": [
-        "/_public/",
-        "/_public/register/"
+        "/_public/"
       ]
     },
     "/_protected/sample": {
@@ -196,10 +170,6 @@ export const routeTree = rootRoute
     },
     "/_public/": {
       "filePath": "_public/index.tsx",
-      "parent": "/_public"
-    },
-    "/_public/register/": {
-      "filePath": "_public/register/index.tsx",
       "parent": "/_public"
     }
   }
