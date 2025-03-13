@@ -1,5 +1,6 @@
 export const LOCAL_STORAGE_KEYS = {
   ASSESSMENT_USER: 'assessment__user',
+  ASSESSMENT_RESPONSES: 'assessment__responses',
 } as const;
 
 export type LocalAssessmentUser = {
