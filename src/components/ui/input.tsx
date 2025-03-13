@@ -34,7 +34,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, required, ...props }, ref) => {
     if (label) {
       return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 text-sm">
           <label htmlFor={props.id ?? label} className="text-muted-foreground">
             {label}
             {required && <span className="ml-1 text-red-500">*</span>}
