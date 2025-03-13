@@ -101,3 +101,14 @@ src/features/<feature-name>/
 ├── _types/                 # Feature's types
 └── _utils/                 # Feature's utilities
 ```
+
+## For Testing
+- Don't forget to run the `pnpm test [path]` command to check if there's a failing tests.
+- Start investigating why there's a failing tests and start fixing it once you understand the context.
+
+## UI Components with shadcn/ui
+When using shadcn/ui components:
+- All UI components should be installed in `src/components/ui/`
+- Follow the official shadcn/ui installation instructions
+- Use the CLI: `pnpm dlx shadcn@latest add <component-name>`
+- When creating custom variants, define them in `src/lib/utils.ts` with the `cn` utility
