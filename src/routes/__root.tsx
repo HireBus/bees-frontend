@@ -9,26 +9,34 @@ import '../global.css';
 export const Route = createRootRoute({
   component: RootPage,
   head: () => ({
-    title: 'Template React Vite',
+    title: 'Blind Spotting',
     meta: [
-      { name: 'title', content: 'Template React Vite' },
-      { name: 'description', content: 'Template React Vite' },
-      { name: 'application_name', content: 'Template React Vite App' },
+      { name: 'title', content: 'Blind Spotting' },
+      {
+        name: 'description',
+        content:
+          "Discover the roles where you'll naturally thrive with the E3 Behavioral Assessment. Get behavioral insights for personal and professional growth.",
+      },
+      { name: 'application_name', content: 'Blind Spotting Behavioral Assessment' },
 
       // Open Graph / Facebook
-      { property: 'og:title', content: 'Template React Vite' },
+      { property: 'og:title', content: 'Blind Spotting' },
       { property: 'og:type', content: 'website' },
-      { property: 'og:site_name', content: 'Template React Vite' },
-      { property: 'og:url', content: 'https://www.youtube.com/bossRODTV' },
-      { property: 'og:description', content: 'Template React Vite' },
+      { property: 'og:site_name', content: 'Blind Spotting' },
+      { property: 'og:url', content: 'https://www.blindspotting.com/assessment' },
+      {
+        property: 'og:description',
+        content:
+          "Designed with your development in mind, the E3 Behavioral Assessment reveals the roles where you'll naturally thrive and delivers the behavioral insights you need.",
+      },
 
       // Twitter
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:image:alt', content: 'banner_description' },
+      { name: 'twitter:image:alt', content: 'E3 Behavioral Assessment by Blind Spotting' },
 
       // For Analytics
       { property: 'fb:app_id', content: 'your_app_id' },
-      { name: 'twitter:site', content: '@username' },
+      { name: 'twitter:site', content: '@blindspotting' },
 
       // Favicon
       { name: 'msapplication-TileColor', content: '#3b82f6' },

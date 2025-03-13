@@ -4,6 +4,7 @@ import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useBeesApiClientContext } from '@/contexts/bees-api-client';
 import { useToastClientContext } from '@/contexts/toast-client';
+import { parseError } from '@/utils/error-parser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -45,7 +46,15 @@ export function BehavioralAssessmentForm() {
       toastClient.success('Access code validated', {
         description: 'Your access code is valid.',
       });
-    } catch {
+    } catch (err) {
+      const error = parseError(err as Error);
+      if (error.name === 'ApiError' || error.name === 'ConflictError') {
+        toastClient.error('Invalid access code', {
+          description: error.message,
+        });
+        return;
+      }
+
       toastClient.error('Invalid access code', {
         description: 'Please check your access code and try again.',
       });
