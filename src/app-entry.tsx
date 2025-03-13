@@ -28,7 +28,7 @@ declare module '@tanstack/react-router' {
 
 export function App() {
   return (
-    <ThemeProvider defaultTheme="dark">
+    <ThemeProvider defaultTheme="light">
       <QueryClientProvider client={queryClient}>
         <ApiClientProvider>
           <AuthProvider>
