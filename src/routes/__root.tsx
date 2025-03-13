@@ -47,7 +47,7 @@ function RootPage() {
           <div>© {currentYear} Behavioral Essentials</div>
           <div>
             Need Help?{' '}
-            <Link to="/" className="text-primary hover:underline">
+            <Link to="/" className="font-medium text-primary hover:underline">
               Contact support@behavioralessentials.com
             </Link>
           </div>

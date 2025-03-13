@@ -9,19 +9,19 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, label, error, ...props }, ref) => {
+    const isRequired = props.required;
+
     if (label) {
       return (
-        <div className="flex flex-col">
-          <label htmlFor={props.id ?? label} className="text-sm font-medium text-muted-foreground">
+        <div className="flex flex-col gap-2">
+          <label htmlFor={props.id ?? label} className="text-muted-foreground">
             {label}
+            {isRequired && <span className="ml-1 text-red-500">*</span>}
           </label>
-          <input
-            type={type}
-            className={cn(
-              'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-              className
-            )}
+          <BaseInput
             ref={ref}
+            className={className}
+            type={type}
             {...props}
             id={props.id ?? label}
           />
@@ -30,11 +30,23 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       );
     }
 
+    return <BaseInput ref={ref} className={className} type={type} {...props} />;
+  }
+);
+Input.displayName = 'Input';
+
+const BaseInput = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
     return (
       <input
         type={type}
         className={cn(
-          'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          'box-border h-[44px] w-full md:w-full',
+          'rounded-2xl border border-base-400',
+          'px-3 md:px-4',
+          'placeholder:text-base-400',
+          'focus:border-[2px] focus:border-primary-focus focus:outline-none focus:ring-0',
+          'disabled:border-base-400 disabled:bg-white disabled:text-base-400',
           className
         )}
         ref={ref}
@@ -43,6 +55,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-Input.displayName = 'Input';
+BaseInput.displayName = 'BaseInput';
 
 export { Input };

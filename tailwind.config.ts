@@ -30,13 +30,13 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
-          focus: '#02C4B6',
+          focus: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
           content: '#242730',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
-          focus: '#00CCBE',
+          focus: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
           content: '#6A6C72',
         },
