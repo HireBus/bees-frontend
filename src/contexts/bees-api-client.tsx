@@ -4,6 +4,7 @@ import {
   getCodesValidate,
   postCodesGenerate,
 } from '@/data/bees';
+import { initBeesOpenAPIConfig } from '@/data/bees/openapi-config';
 import { createContext, type ReactNode, useContext } from 'react';
 
 export type BeesApiClientContextState = {
@@ -14,6 +15,8 @@ export type BeesApiClientContextState = {
 };
 
 export function createBeesApiClientContext(): BeesApiClientContextState {
+  initBeesOpenAPIConfig();
+
   return {
     getCodeBatchesSearch: getCodeBatchesSearch,
     getCodesSearch: getCodesSearch,

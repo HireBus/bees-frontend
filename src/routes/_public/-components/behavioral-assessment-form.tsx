@@ -2,18 +2,19 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useBeesApiClientContext } from '@/contexts/bees-api-client';
+import { useToastClientContext } from '@/contexts/toast-client';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-// Define form schema with Zod for validation
 const behavioralAssessmentSchema = z.object({
   firstName: z.string().min(1, { message: 'First name is required' }),
   lastName: z.string().min(1, { message: 'Last name is required' }),
   email: z.string().email({ message: 'Please enter a valid email' }).toLowerCase(),
   jobTitle: z.string().min(1, { message: 'Job title is required' }),
   organization: z.string().min(1, { message: 'Organization is required' }),
-  accessCode: z.string().min(1, { message: 'Access code is required' }),
+  accessCode: z.string().min(1, { message: 'Access code is required' }).toUpperCase(),
   agreeToComms: z.boolean().refine(value => value === true, {
     message: 'You must agree to receive communication messages',
   }),
@@ -35,10 +36,20 @@ export function BehavioralAssessmentForm() {
     },
   });
 
-  const onSubmit = (data: BehavioralAssessmentFormValues) => {
-    // Handle form submission
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const beesApiClient = useBeesApiClientContext();
+  const toastClient = useToastClientContext();
+
+  const onSubmit = async (data: BehavioralAssessmentFormValues) => {
+    try {
+      await beesApiClient.getCodesValidate({ code: data.accessCode });
+      toastClient.success('Access code validated', {
+        description: 'Your access code has been successfully validated.',
+      });
+    } catch {
+      toastClient.error('Invalid access code', {
+        description: 'Please check your access code and try again.',
+      });
+    }
   };
 
   return (
@@ -163,8 +174,9 @@ export function BehavioralAssessmentForm() {
                     <FormControl>
                       <Input
                         {...field}
+                        className="uppercase"
                         label="Access Code"
-                        placeholder="BE12345"
+                        placeholder="BSDKDJEU98202"
                         error={form.formState.errors.accessCode?.message}
                         required
                       />
@@ -197,8 +209,9 @@ export function BehavioralAssessmentForm() {
             <Button
               type="submit"
               className="w-full bg-primary font-medium text-primary-foreground hover:bg-primary/90"
+              disabled={form.formState.isSubmitting}
             >
-              Next
+              {form.formState.isSubmitting ? 'Submitting...' : 'Next'}
             </Button>
           </form>
         </Form>
