@@ -43,7 +43,7 @@ export function BehavioralAssessmentForm() {
     try {
       await beesApiClient.getCodesValidate({ code: data.accessCode });
       toastClient.success('Access code validated', {
-        description: 'Your access code has been successfully validated.',
+        description: 'Your access code is valid.',
       });
     } catch {
       toastClient.error('Invalid access code', {
