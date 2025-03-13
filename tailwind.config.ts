@@ -12,6 +12,7 @@ const config = {
     fontFamily: {
       montserrat: ['var(--font-montserrat)', 'sans-serif'],
       inter: ['var(--font-inter)', 'sans-serif'],
+      roboto: ['Roboto', 'sans-serif'],
     },
     container: {
       center: true,
@@ -29,11 +30,15 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          focus: '#02C4B6',
           foreground: 'hsl(var(--primary-foreground))',
+          content: '#242730',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
+          focus: '#00CCBE',
           foreground: 'hsl(var(--secondary-foreground))',
+          content: '#6A6C72',
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
@@ -54,6 +59,24 @@ const config = {
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
+        },
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
+        },
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
+        },
+        base: {
+          100: 'hsl(var(--base-100))',
+          200: 'hsl(var(--base-200))',
+          300: 'hsl(var(--base-300))',
+          400: 'hsl(var(--base-400))',
+          500: 'hsl(var(--base-500))',
+          600: 'hsl(var(--base-600))',
+          700: 'hsl(var(--base-700))',
+          content: '#18181B',
         },
       },
       borderRadius: {

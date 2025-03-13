@@ -1,5 +1,4 @@
-import { Navbar } from '@/components/navbar';
-import { HeadContent, Outlet, createRootRoute } from '@tanstack/react-router';
+import { HeadContent, Link, Outlet, createRootRoute } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 import '../global.css';
 
@@ -40,14 +39,17 @@ function RootPage() {
   return (
     <>
       <HeadContent />
-      <div className="flex min-h-screen flex-col">
-        <Navbar />
-        <main className="container mx-auto flex-1 py-6">
+      <div className="relative grid min-h-screen grid-rows-[1fr_auto]">
+        <main className="h-full">
           <Outlet />
         </main>
-        <footer className="border-t py-4">
-          <div className="container mx-auto text-center text-sm text-muted-foreground">
-            &copy; {currentYear} Template React Vite by bossROD. All rights reserved.
+        <footer className="absolute bottom-0 flex w-full items-center justify-between px-10 py-4 text-sm text-gray-600">
+          <div>© {currentYear} Behavioral Essentials</div>
+          <div>
+            Need Help?{' '}
+            <Link to="/" className="text-primary hover:underline">
+              Contact support@behavioralessentials.com
+            </Link>
           </div>
         </footer>
         {process.env.NODE_ENV === 'development' && <TanStackRouterDevtools />}
