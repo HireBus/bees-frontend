@@ -31,18 +31,18 @@ declare module '@tanstack/react-router' {
 export function App() {
   return (
     <ThemeProvider defaultTheme="light">
-      <LayoutsProvider>
-        <QueryClientProvider client={queryClient}>
-          <ToastClientProvider>
+      <ToastClientProvider>
+        <LayoutsProvider>
+          <QueryClientProvider client={queryClient}>
             <BeesApiClientProvider>
               <AuthProvider>
                 <RouterProvider router={router} />
                 <Toaster position="top-right" />
               </AuthProvider>
             </BeesApiClientProvider>
-          </ToastClientProvider>
-        </QueryClientProvider>
-      </LayoutsProvider>
+          </QueryClientProvider>
+        </LayoutsProvider>
+      </ToastClientProvider>
     </ThemeProvider>
   );
 }
