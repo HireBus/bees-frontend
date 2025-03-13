@@ -2,14 +2,22 @@ import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem } from '@/components/ui/form';
 import { cn } from '@/lib/utils';
 import { useMemo } from 'react';
-import { type ControllerRenderProps, type FieldValues, useForm } from 'react-hook-form';
+import {
+  type ControllerRenderProps,
+  type FieldValues,
+  type SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 import { getShuffledAdjectives } from '../-utils/adjectives';
 
 export function AdjectivesAssessmentForm() {
   const adjectives = useMemo(getShuffledAdjectives, []);
   const form = useForm();
 
-  const onSubmit = () => {};
+  const onSubmit: SubmitHandler<FieldValues> = data => {
+    // eslint-disable-next-line no-console
+    console.log(data);
+  };
 
   return (
     <Form {...form}>
