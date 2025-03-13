@@ -2,10 +2,13 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { LOCAL_STORAGE_KEYS } from '@/constants/local-storage';
 import { useBeesApiClientContext } from '@/contexts/bees-api-client';
 import { useToastClientContext } from '@/contexts/toast-client';
 import { parseError } from '@/utils/error-parser';
+import { setLocalStorageItemObject } from '@/utils/local-storage';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -39,6 +42,7 @@ export function BehavioralAssessmentForm() {
 
   const beesApiClient = useBeesApiClientContext();
   const toastClient = useToastClientContext();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: BehavioralAssessmentFormValues) => {
     try {
@@ -46,6 +50,9 @@ export function BehavioralAssessmentForm() {
       toastClient.success('Access code validated', {
         description: 'Your access code is valid.',
       });
+
+      setLocalStorageItemObject(LOCAL_STORAGE_KEYS.ASSESSMENT_USER, data);
+      navigate({ to: '/take' });
     } catch (err) {
       const error = parseError(err as Error);
       if (error.name === 'ApiError' || error.name === 'ConflictError') {
