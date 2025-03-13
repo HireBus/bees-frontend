@@ -27,22 +27,21 @@ BaseInput.displayName = 'BaseInput';
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
+  required?: boolean;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, label, error, ...props }, ref) => {
-    const isRequired = props.required;
-
+  ({ className, type, label, error, required, ...props }, ref) => {
     if (label) {
       return (
         <div className="flex flex-col gap-2">
           <label htmlFor={props.id ?? label} className="text-muted-foreground">
             {label}
-            {isRequired && <span className="ml-1 text-red-500">*</span>}
+            {required && <span className="ml-1 text-red-500">*</span>}
           </label>
           <BaseInput
             ref={ref}
-            className={className}
+            className={cn(className, error && 'border-red-500')}
             type={type}
             {...props}
             id={props.id ?? label}

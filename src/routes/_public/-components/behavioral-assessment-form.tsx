@@ -1,33 +1,45 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
+// Define form schema with Zod for validation
+const behavioralAssessmentSchema = z.object({
+  firstName: z.string().min(1, { message: 'First name is required' }),
+  lastName: z.string().min(1, { message: 'Last name is required' }),
+  email: z.string().email({ message: 'Please enter a valid email' }).toLowerCase(),
+  jobTitle: z.string().min(1, { message: 'Job title is required' }),
+  organization: z.string().min(1, { message: 'Organization is required' }),
+  accessCode: z.string().min(1, { message: 'Access code is required' }),
+  agreeToComms: z.boolean().refine(value => value === true, {
+    message: 'You must agree to receive communication messages',
+  }),
+});
+
+type BehavioralAssessmentFormValues = z.infer<typeof behavioralAssessmentSchema>;
 
 export function BehavioralAssessmentForm() {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    jobTitle: '',
-    organization: '',
-    accessCode: '',
-    agreeToComms: false,
+  // Initialize form with React Hook Form and Zod resolver
+  const form = useForm<BehavioralAssessmentFormValues>({
+    resolver: zodResolver(behavioralAssessmentSchema),
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      jobTitle: '',
+      organization: '',
+      accessCode: '',
+      agreeToComms: false,
+    },
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleCheckboxChange = (checked: boolean) => {
-    setFormData(prev => ({ ...prev, agreeToComms: checked }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = (data: BehavioralAssessmentFormValues) => {
     // Handle form submission
     // eslint-disable-next-line no-console
-    console.log(formData);
+    console.log(data);
   };
 
   return (
@@ -42,91 +54,155 @@ export function BehavioralAssessmentForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6 grid gap-4 md:grid-cols-2">
-            <div className="space-y-2">
-              <Input
-                label="First Name"
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="mb-6 grid gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
                 name="firstName"
-                placeholder="John"
-                value={formData.firstName}
-                onChange={handleChange}
-                required
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        label="First Name"
+                        placeholder="John"
+                        required
+                        error={form.formState.errors.firstName?.message}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
-            </div>
 
-            <div className="space-y-2">
-              <Input
-                label="Last Name"
+              <FormField
+                control={form.control}
                 name="lastName"
-                placeholder="Doe"
-                value={formData.lastName}
-                onChange={handleChange}
-                required
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        label="Last Name"
+                        placeholder="Doe"
+                        required
+                        error={form.formState.errors.lastName?.message}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
               />
             </div>
-          </div>
 
-          <div className="mb-6 space-y-2">
-            <Input
-              label="Email Address"
-              name="email"
-              type="email"
-              placeholder="johndoe@gmail.com"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="mb-6 space-y-2">
-            <Input
-              label="Job Title"
-              name="jobTitle"
-              placeholder="Manager"
-              value={formData.jobTitle}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="mb-6 space-y-2">
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        label="Email Address"
+                        type="email"
+                        placeholder="johndoe@gmail.com"
+                        required
+                        error={form.formState.errors.email?.message}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <div className="mb-6 space-y-2">
-            <Input
-              label="Organization"
-              name="organization"
-              placeholder="MMM company"
-              value={formData.organization}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="mb-6 space-y-2">
+              <FormField
+                control={form.control}
+                name="jobTitle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        label="Job Title"
+                        placeholder="Manager"
+                        required
+                        error={form.formState.errors.jobTitle?.message}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <div className="mb-6 space-y-2">
-            <Input
-              label="Access Code"
-              name="accessCode"
-              placeholder="BE12345"
-              value={formData.accessCode}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="mb-6 space-y-2">
+              <FormField
+                control={form.control}
+                name="organization"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        label="Organization"
+                        placeholder="MMM company"
+                        required
+                        error={form.formState.errors.organization?.message}
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <div className="mb-8 flex items-center space-x-2">
-            <Checkbox
-              label="Agree to receive communication messages"
-              checked={formData.agreeToComms}
-              onCheckedChange={handleCheckboxChange}
-              className="h-4 w-4 border-gray-300"
-            />
-          </div>
+            <div className="mb-6 space-y-2">
+              <FormField
+                control={form.control}
+                name="accessCode"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        label="Access Code"
+                        placeholder="BE12345"
+                        error={form.formState.errors.accessCode?.message}
+                        required
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
 
-          <Button
-            type="submit"
-            className="w-full bg-primary font-medium text-primary-foreground hover:bg-primary/90"
-          >
-            Next
-          </Button>
-        </form>
+            <div className="mb-8 flex items-center space-x-2">
+              <FormField
+                control={form.control}
+                name="agreeToComms"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Checkbox
+                        label="Agree to receive communication messages"
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        error={form.formState.errors.agreeToComms?.message}
+                        required
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-primary font-medium text-primary-foreground hover:bg-primary/90"
+            >
+              Next
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );
