@@ -10,8 +10,8 @@ import type {
   GetCodesSearchResponse,
   PostCodesGenerateData,
   PostCodesGenerateResponse,
-  PostCodesValidateData,
-  PostCodesValidateResponse,
+  GetCodesValidateData,
+  GetCodesValidateResponse,
 } from './types.gen';
 
 /**
@@ -101,17 +101,18 @@ export const postCodesGenerate = (
  * Validate code
  * Validate a code.
  * @param data The data for the request.
- * @param data.requestBody
+ * @param data.code
  * @returns Code Code validated successfully
  * @throws ApiError
  */
-export const postCodesValidate = (
-  data: PostCodesValidateData = {}
-): CancelablePromise<PostCodesValidateResponse> => {
+export const getCodesValidate = (
+  data: GetCodesValidateData
+): CancelablePromise<GetCodesValidateResponse> => {
   return __request(OpenAPI, {
-    method: 'POST',
+    method: 'GET',
     url: '/codes/validate',
-    body: data.requestBody,
-    mediaType: 'application/json',
+    query: {
+      code: data.code,
+    },
   });
 };

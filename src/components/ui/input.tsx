@@ -2,6 +2,28 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
+const BaseInput = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          'box-border h-[44px] w-full md:w-full',
+          'rounded-2xl border border-base-400',
+          'px-3 md:px-4',
+          'placeholder:text-base-400',
+          'focus:border-[2px] focus:border-primary-focus focus:outline-none focus:ring-0',
+          'disabled:border-base-400 disabled:bg-white disabled:text-base-400',
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+BaseInput.displayName = 'BaseInput';
+
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
@@ -34,27 +56,5 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
   }
 );
 Input.displayName = 'Input';
-
-const BaseInput = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
-    return (
-      <input
-        type={type}
-        className={cn(
-          'box-border h-[44px] w-full md:w-full',
-          'rounded-2xl border border-base-400',
-          'px-3 md:px-4',
-          'placeholder:text-base-400',
-          'focus:border-[2px] focus:border-primary-focus focus:outline-none focus:ring-0',
-          'disabled:border-base-400 disabled:bg-white disabled:text-base-400',
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
-BaseInput.displayName = 'BaseInput';
 
 export { Input };

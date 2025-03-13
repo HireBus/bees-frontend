@@ -20,7 +20,7 @@ export const $Code = {
           nullable: true,
         },
       ],
-      example: '2025-03-13T11:11:59.879Z',
+      example: '2025-03-13T13:07:03.258Z',
     },
     updated_at: {
       anyOf: [
@@ -35,7 +35,7 @@ export const $Code = {
           nullable: true,
         },
       ],
-      example: '2025-03-13T11:11:59.879Z',
+      example: '2025-03-13T13:07:03.258Z',
     },
     deleted_at: {
       anyOf: [
@@ -111,7 +111,7 @@ export const $CodeBatch = {
           nullable: true,
         },
       ],
-      example: '2025-03-13T11:11:59.872Z',
+      example: '2025-03-13T13:07:03.252Z',
     },
     updated_at: {
       anyOf: [
@@ -126,7 +126,7 @@ export const $CodeBatch = {
           nullable: true,
         },
       ],
-      example: '2025-03-13T11:11:59.875Z',
+      example: '2025-03-13T13:07:03.255Z',
     },
     deleted_at: {
       anyOf: [

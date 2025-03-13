@@ -1,9 +1,9 @@
 // query-client-wrapper.tsx
 import { type PropsWithChildren } from 'react';
 
-import { mockApiClient } from '@/contexts/__test-utils__/mock-api-client';
+import { mockBeesApiClient } from '@/contexts/__test-utils__/mock-bees-api-client';
 import { mockNuqsClient } from '@/contexts/__test-utils__/mock-nuqs-client';
-import { ApiClientProvider } from '@/contexts/api-client';
+import { BeesApiClientProvider } from '@/contexts/bees-api-client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { NuqsTestingAdapter } from 'nuqs/adapters/testing';
 
@@ -24,7 +24,7 @@ export function testMocksWrapper({ children }: PropsWithChildren) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ApiClientProvider client={mockApiClient}>
+      <BeesApiClientProvider client={mockBeesApiClient}>
         {/* <RouterClientProvider client={mockRouterClient}> */}
         {/* <ToastClientProvider client={mockToastClient}> */}
         <NuqsTestingAdapter
@@ -35,7 +35,7 @@ export function testMocksWrapper({ children }: PropsWithChildren) {
         </NuqsTestingAdapter>
         {/* </ToastClientProvider> */}
         {/* </RouterClientProvider> */}
-      </ApiClientProvider>
+      </BeesApiClientProvider>
     </QueryClientProvider>
   );
 }

@@ -83,13 +83,11 @@ export type PostCodesGenerateData = {
 
 export type PostCodesGenerateResponse = CodeBatch;
 
-export type PostCodesValidateData = {
-  requestBody?: {
-    code: string;
-  };
+export type GetCodesValidateData = {
+  code: string;
 };
 
-export type PostCodesValidateResponse = Code;
+export type GetCodesValidateResponse = Code;
 
 export type $OpenApiTs = {
   '/code-batches/search': {
@@ -140,8 +138,8 @@ export type $OpenApiTs = {
     };
   };
   '/codes/validate': {
-    post: {
-      req: PostCodesValidateData;
+    get: {
+      req: GetCodesValidateData;
       res: {
         /**
          * Code validated successfully

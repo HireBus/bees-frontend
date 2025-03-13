@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
-import { ApiClientProvider } from './contexts/api-client';
 import { AuthProvider } from './contexts/auth';
+import { BeesApiClientProvider } from './contexts/bees-api-client';
 import { ThemeProvider } from './contexts/theme';
 import './global.css';
 import { routeTree } from './routeTree.gen';
@@ -30,12 +30,12 @@ export function App() {
   return (
     <ThemeProvider defaultTheme="light">
       <QueryClientProvider client={queryClient}>
-        <ApiClientProvider>
+        <BeesApiClientProvider>
           <AuthProvider>
             <RouterProvider router={router} />
             <ReactQueryDevtools initialIsOpen={false} />
           </AuthProvider>
-        </ApiClientProvider>
+        </BeesApiClientProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );
