@@ -4,7 +4,7 @@ import Lottie from 'lottie-react';
 
 export function Reviewing() {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center px-7 text-center">
+    <div className="flex h-full w-full flex-col items-center justify-center px-5 pb-20 pt-40 text-center">
       {/* Newton's cradle animation */}
       <div className="mb-6 mt-4">
         <div className="mx-auto flex w-full max-w-[227px] items-center justify-center">
