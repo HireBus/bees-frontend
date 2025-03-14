@@ -48,6 +48,14 @@
     --base-600: 223 3% 44%;
     --base-700: 229 6% 16%;
     --font-family: 'Roboto, sans-serif';
+
+    /* Blindspotting report specific variables */
+    --teal: 175 100% 40%;
+    --teal-foreground: 0 0% 100%;
+    --light-blue: 240 100% 98%;
+    --light-blue-foreground: 225 13% 16%;
+    --tab-height: 52px;
+    --tab-radius: 26px;
   }
 
   .dark {
