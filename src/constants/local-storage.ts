@@ -4,7 +4,7 @@ export const LOCAL_STORAGE_KEYS = {
 } as const;
 
 export type LocalAssessmentUser = {
-  id: string;
+  surveyResultId?: string;
   firstName: string;
   lastName: string;
   email: string;

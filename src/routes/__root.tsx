@@ -56,7 +56,7 @@ function RootPage() {
     <>
       <HeadContent />
       <div className="grid min-h-screen">
-        <main className="grid h-full grid-rows-[auto_1fr_auto]">
+        <main className="grid h-full grid-rows-[1fr_auto]">
           <Navbar className={bgColor} />
           <main className={cn('h-full w-full', bgColor)}>
             <Outlet />
