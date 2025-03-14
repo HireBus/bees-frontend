@@ -15,6 +15,7 @@ import { Route as PublicLayoutImport } from './routes/_public/layout';
 import { Route as ProtectedLayoutImport } from './routes/_protected/layout';
 import { Route as PublicIndexImport } from './routes/_public/index';
 import { Route as ProtectedSampleImport } from './routes/_protected/sample';
+import { Route as ProtectedBlindspottingReportImport } from './routes/_protected/blindspotting-report';
 import { Route as PublicTakeIndexImport } from './routes/_public/take/index';
 
 // Create/Update Routes
@@ -41,6 +42,12 @@ const ProtectedSampleRoute = ProtectedSampleImport.update({
   getParentRoute: () => ProtectedLayoutRoute,
 } as any);
 
+const ProtectedBlindspottingReportRoute = ProtectedBlindspottingReportImport.update({
+  id: '/blindspotting-report',
+  path: '/blindspotting-report',
+  getParentRoute: () => ProtectedLayoutRoute,
+} as any);
+
 const PublicTakeIndexRoute = PublicTakeIndexImport.update({
   id: '/take/',
   path: '/take/',
@@ -64,6 +71,13 @@ declare module '@tanstack/react-router' {
       fullPath: '';
       preLoaderRoute: typeof PublicLayoutImport;
       parentRoute: typeof rootRoute;
+    };
+    '/_protected/blindspotting-report': {
+      id: '/_protected/blindspotting-report';
+      path: '/blindspotting-report';
+      fullPath: '/blindspotting-report';
+      preLoaderRoute: typeof ProtectedBlindspottingReportImport;
+      parentRoute: typeof ProtectedLayoutImport;
     };
     '/_protected/sample': {
       id: '/_protected/sample';
@@ -92,10 +106,12 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface ProtectedLayoutRouteChildren {
+  ProtectedBlindspottingReportRoute: typeof ProtectedBlindspottingReportRoute;
   ProtectedSampleRoute: typeof ProtectedSampleRoute;
 }
 
 const ProtectedLayoutRouteChildren: ProtectedLayoutRouteChildren = {
+  ProtectedBlindspottingReportRoute: ProtectedBlindspottingReportRoute,
   ProtectedSampleRoute: ProtectedSampleRoute,
 };
 
@@ -117,6 +133,7 @@ const PublicLayoutRouteWithChildren = PublicLayoutRoute._addFileChildren(PublicL
 
 export interface FileRoutesByFullPath {
   '': typeof PublicLayoutRouteWithChildren;
+  '/blindspotting-report': typeof ProtectedBlindspottingReportRoute;
   '/sample': typeof ProtectedSampleRoute;
   '/': typeof PublicIndexRoute;
   '/take': typeof PublicTakeIndexRoute;
@@ -124,6 +141,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof ProtectedLayoutRouteWithChildren;
+  '/blindspotting-report': typeof ProtectedBlindspottingReportRoute;
   '/sample': typeof ProtectedSampleRoute;
   '/': typeof PublicIndexRoute;
   '/take': typeof PublicTakeIndexRoute;
@@ -133,6 +151,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute;
   '/_protected': typeof ProtectedLayoutRouteWithChildren;
   '/_public': typeof PublicLayoutRouteWithChildren;
+  '/_protected/blindspotting-report': typeof ProtectedBlindspottingReportRoute;
   '/_protected/sample': typeof ProtectedSampleRoute;
   '/_public/': typeof PublicIndexRoute;
   '/_public/take/': typeof PublicTakeIndexRoute;
@@ -140,13 +159,14 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/sample' | '/' | '/take';
+  fullPaths: '' | '/blindspotting-report' | '/sample' | '/' | '/take';
   fileRoutesByTo: FileRoutesByTo;
-  to: '' | '/sample' | '/' | '/take';
+  to: '' | '/blindspotting-report' | '/sample' | '/' | '/take';
   id:
     | '__root__'
     | '/_protected'
     | '/_public'
+    | '/_protected/blindspotting-report'
     | '/_protected/sample'
     | '/_public/'
     | '/_public/take/';
@@ -180,6 +200,7 @@ export const routeTree = rootRoute
     "/_protected": {
       "filePath": "_protected/layout.tsx",
       "children": [
+        "/_protected/blindspotting-report",
         "/_protected/sample"
       ]
     },
@@ -189,6 +210,10 @@ export const routeTree = rootRoute
         "/_public/",
         "/_public/take/"
       ]
+    },
+    "/_protected/blindspotting-report": {
+      "filePath": "_protected/blindspotting-report.tsx",
+      "parent": "/_protected"
     },
     "/_protected/sample": {
       "filePath": "_protected/sample.tsx",
