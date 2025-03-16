@@ -12,7 +12,7 @@ export function ThemeToggle() {
   return (
     <Button
       variant="ghost"
-      size="icon"
+      color="primary"
       onClick={toggleTheme}
       className="h-9 w-9 rounded-md"
       aria-label="Toggle theme"

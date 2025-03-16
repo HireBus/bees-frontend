@@ -44,7 +44,7 @@ export const AddSampleForm = () => {
         error={formState.errors.description?.message}
         {...register('description')}
       />
-      <Button type="submit" disabled={isPending}>
+      <Button type="submit" disabled={isPending} color="primary">
         {isPending ? 'Adding...' : 'Add Sample'}
       </Button>
     </form>

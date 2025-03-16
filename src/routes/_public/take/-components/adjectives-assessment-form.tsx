@@ -8,15 +8,16 @@ import {
   type SubmitHandler,
   useForm,
 } from 'react-hook-form';
+import { useAssessmentUserStore } from '../-stores/use-assessment-user';
 import { getShuffledAdjectives } from '../-utils/adjectives';
 
 export function AdjectivesAssessmentForm() {
   const adjectives = useMemo(getShuffledAdjectives, []);
   const form = useForm();
+  const updateUser = useAssessmentUserStore(state => state.updateUser);
 
-  const onSubmit: SubmitHandler<FieldValues> = data => {
-    // eslint-disable-next-line no-console
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async () => {
+    updateUser({ surveyResultId: 'asdfasdf' });
   };
 
   return (

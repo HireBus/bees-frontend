@@ -1,17 +1,14 @@
-import { type LocalAssessmentUser, LOCAL_STORAGE_KEYS } from '@/constants/local-storage';
-import { getLocalStorageItemObject } from '@/utils/local-storage';
 import { createFileRoute, Navigate } from '@tanstack/react-router';
 import { AdjectivesAssessment } from './-components/adjectives-assessment';
 import { Reviewing } from './-components/reviewing';
+import { useAssessmentUserStore } from './-stores/use-assessment-user';
 
 export const Route = createFileRoute('/_public/take/')({
   component: TakePage,
 });
 
 function TakePage() {
-  const currentUser = getLocalStorageItemObject<LocalAssessmentUser>(
-    LOCAL_STORAGE_KEYS.ASSESSMENT_USER
-  );
+  const currentUser = useAssessmentUserStore(state => state.user);
 
   if (!currentUser) {
     return <Navigate to="/" />;
