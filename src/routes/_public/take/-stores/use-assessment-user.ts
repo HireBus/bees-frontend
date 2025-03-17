@@ -1,12 +1,9 @@
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
 
 import { LOCAL_STORAGE_KEYS } from '@/constants/local-storage';
-import { removeLocalStorageItem, setLocalStorageItemObject } from '@/utils/local-storage';
 
 export type AssessmentUser = {
-  surveyResultId?: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -18,49 +15,63 @@ export type AssessmentUser = {
 
 export type AssessmentUserStoreState = {
   user: AssessmentUser | null;
+  progress: number;
 };
 
 export type AssessmentUserStoreActions = {
+  reset: () => void;
   setUser: (user: AssessmentUser) => void;
   updateUser: (userData: Partial<AssessmentUser>) => void;
-  clearUser: () => void;
+  resetProgress: () => void;
+  runProgressUpTo: (progressLimit: number) => void;
 };
 
 export type AssessmentUserStore = AssessmentUserStoreState & AssessmentUserStoreActions;
 
 export const DEFAULT_ASSESSMENT_USER_STORE_STATE: AssessmentUserStoreState = {
   user: null,
+  progress: 0,
 };
 
-export const useAssessmentUserStore = create(
+export const useAssessmentUserStore = create<AssessmentUserStore>()(
   persist(
-    immer<AssessmentUserStore>(set => ({
+    set => ({
       ...DEFAULT_ASSESSMENT_USER_STORE_STATE,
 
       /* Actions */
+      reset: () => {
+        set(() => ({
+          ...DEFAULT_ASSESSMENT_USER_STORE_STATE,
+        }));
+      },
+
       setUser: user => {
-        set(state => {
-          state.user = user;
-        });
-        setLocalStorageItemObject(LOCAL_STORAGE_KEYS.ASSESSMENT_USER, user);
+        set(() => ({ user, progress: 0 }));
       },
 
       updateUser: userData => {
-        set(state => {
-          if (state.user) {
-            state.user = { ...state.user, ...userData };
-            setLocalStorageItemObject(LOCAL_STORAGE_KEYS.ASSESSMENT_USER, state.user);
-          }
-        });
+        set(state => ({
+          user: state.user ? { ...state.user, ...userData } : null,
+        }));
       },
 
-      clearUser: () => {
-        set(state => {
-          state.user = null;
-        });
-        removeLocalStorageItem(LOCAL_STORAGE_KEYS.ASSESSMENT_USER);
+      resetProgress: () => {
+        set(() => ({ progress: 0 }));
       },
-    })),
+
+      runProgressUpTo: (progressLimit: number) => {
+        const interval = setInterval(() => {
+          set(state => {
+            const currentProgress = state.progress;
+            if (currentProgress < progressLimit) {
+              return { progress: currentProgress + 1 };
+            }
+            clearInterval(interval);
+            return state;
+          });
+        }, 50);
+      },
+    }),
     {
       name: LOCAL_STORAGE_KEYS.ASSESSMENT_USER,
       storage: createJSONStorage(() => localStorage),

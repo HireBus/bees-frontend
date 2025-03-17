@@ -3,16 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type {
-  GetCodeBatchesSearchData,
-  GetCodeBatchesSearchResponse,
-  GetCodesSearchData,
-  GetCodesSearchResponse,
-  PostCodesGenerateData,
-  PostCodesGenerateResponse,
-  GetCodesValidateData,
-  GetCodesValidateResponse,
-} from './types.gen';
+import type { GetCodeBatchesSearchData, GetCodeBatchesSearchResponse, GetPublicCodesData, GetPublicCodesResponse, GetCodesSearchData, GetCodesSearchResponse, PostCodesGenerateData, PostCodesGenerateResponse, GetCodesValidateData, GetCodesValidateResponse, PostAssessmentsSubmitData, PostAssessmentsSubmitResponse } from './types.gen';
 
 /**
  * Search code batches
@@ -28,23 +19,37 @@ import type {
  * @returns unknown Code batches retrieved successfully
  * @throws ApiError
  */
-export const getCodeBatchesSearch = (
-  data: GetCodeBatchesSearchData = {}
-): CancelablePromise<GetCodeBatchesSearchResponse> => {
-  return __request(OpenAPI, {
+export const getCodeBatchesSearch = (data: GetCodeBatchesSearchData = {}): CancelablePromise<GetCodeBatchesSearchResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/code-batches/search',
     query: {
-      limit: data.limit,
-      page: data.page,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      search: data.search,
-      code_batch_id: data.codeBatchId,
-      sort_by: data.sortBy,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        search: data.search,
+        code_batch_id: data.codeBatchId,
+        sort_by: data.sortBy
+    }
+}); };
+
+/**
+ * Get code
+ * Get a code.
+ * @param data The data for the request.
+ * @param data.id
+ * @param data.code
+ * @returns unknown Code retrieved successfully
+ * @throws ApiError
+ */
+export const getPublicCodes = (data: GetPublicCodesData = {}): CancelablePromise<GetPublicCodesResponse> => { return __request(OpenAPI, {
+    method: 'GET',
+    url: '/public/codes',
+    query: {
+        id: data.id,
+        code: data.code
+    }
+}); };
 
 /**
  * Search codes
@@ -60,23 +65,19 @@ export const getCodeBatchesSearch = (
  * @returns unknown Codes retrieved successfully
  * @throws ApiError
  */
-export const getCodesSearch = (
-  data: GetCodesSearchData = {}
-): CancelablePromise<GetCodesSearchResponse> => {
-  return __request(OpenAPI, {
+export const getCodesSearch = (data: GetCodesSearchData = {}): CancelablePromise<GetCodesSearchResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/codes/search',
     query: {
-      limit: data.limit,
-      page: data.page,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      search: data.search,
-      code_batch_id: data.codeBatchId,
-      sort_by: data.sortBy,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        search: data.search,
+        code_batch_id: data.codeBatchId,
+        sort_by: data.sortBy
+    }
+}); };
 
 /**
  * Generate codes
@@ -86,16 +87,12 @@ export const getCodesSearch = (
  * @returns CodeBatch Codes generated successfully
  * @throws ApiError
  */
-export const postCodesGenerate = (
-  data: PostCodesGenerateData = {}
-): CancelablePromise<PostCodesGenerateResponse> => {
-  return __request(OpenAPI, {
+export const postCodesGenerate = (data: PostCodesGenerateData = {}): CancelablePromise<PostCodesGenerateResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/codes/generate',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Validate code
@@ -105,14 +102,25 @@ export const postCodesGenerate = (
  * @returns Code Code validated successfully
  * @throws ApiError
  */
-export const getCodesValidate = (
-  data: GetCodesValidateData
-): CancelablePromise<GetCodesValidateResponse> => {
-  return __request(OpenAPI, {
+export const getCodesValidate = (data: GetCodesValidateData): CancelablePromise<GetCodesValidateResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/codes/validate',
     query: {
-      code: data.code,
-    },
-  });
-};
+        code: data.code
+    }
+}); };
+
+/**
+ * Submit an assessment
+ * Submit an assessment.
+ * @param data The data for the request.
+ * @param data.requestBody
+ * @returns unknown Assessment submitted successfully
+ * @throws ApiError
+ */
+export const postAssessmentsSubmit = (data: PostAssessmentsSubmitData = {}): CancelablePromise<PostAssessmentsSubmitResponse> => { return __request(OpenAPI, {
+    method: 'POST',
+    url: '/assessments/submit',
+    body: data.requestBody,
+    mediaType: 'application/json'
+}); };
