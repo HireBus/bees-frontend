@@ -22,15 +22,20 @@ function RouteComponent() {
 
   const { data: codeData, isLoading: isCodeLoading } = usePublicCodeQuery({ id });
 
-  const calculatedReport = useMemo(() => {
+  const summaryReport = useMemo(() => {
     if (!codeData) return null;
     const parsedScores = parseE3Scales21(codeData.surveyResult.e3_scales21);
     if (!parsedScores) return null;
-    return calculateReportService({
+
+    const calculatedReports = calculateReportService({
       report: codeData.traitScaleMappingsReport as TraitScaleMappingReport,
       scores: parsedScores,
       thresholds: codeData.traitScaleMappingsReport.thresholds as Threshold[],
     });
+
+    const categories = Object.keys(calculatedReports);
+
+    return { calculatedReports, categories };
   }, [codeData]);
 
   const tabs = useMemo(() => {
@@ -38,12 +43,12 @@ function RouteComponent() {
       { key: 'summary', label: 'Summary' },
       { key: 'identity', label: 'Identity' },
     ];
-    if (!calculatedReport) return defaultTabs;
+    if (!summaryReport?.categories.length) return defaultTabs;
     return [
       ...defaultTabs,
-      ...Object.keys(calculatedReport).map(key => ({ key: `section-${key}`, label: key })),
+      ...summaryReport.categories.map(category => ({ key: `report-${category}`, label: category })),
     ];
-  }, [calculatedReport]);
+  }, [summaryReport?.categories]);
 
   const [activeTab, setActiveTab] = useQueryState('tab', {
     defaultValue: tabs[0].key,
@@ -72,7 +77,12 @@ function RouteComponent() {
       ) : (
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="flex items-start justify-between py-10">
-            {activeTab === 'summary' && <SummaryTabHeader />}
+            {activeTab === 'summary' && (
+              <SummaryTabHeader
+                title={codeData?.traitScaleMappingsReport.name ?? ''}
+                description={codeData?.traitScaleMappingsReport.description ?? ''}
+              />
+            )}
             <Button variant="outline" color="primary">
               <PrinterIcon className="h-4 w-4" />
               Print Report
@@ -81,7 +91,12 @@ function RouteComponent() {
 
           <Tabs items={tabs} />
 
-          {activeTab === 'summary' && <SummaryTabContent />}
+          {activeTab === 'summary' && (
+            <SummaryTabContent
+              calculatedReports={summaryReport?.calculatedReports ?? {}}
+              categories={summaryReport?.categories ?? []}
+            />
+          )}
 
           {/* Page Number */}
           <div className="mt-12 flex items-center gap-4 pb-8">

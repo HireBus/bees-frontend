@@ -1,18 +1,26 @@
 import ChartSvg from '@/assets/chart.svg?react';
+import { type calculateReportService } from '@/services/calculate-report';
 
-export function SummaryTabHeader() {
+export type SummaryTabHeaderProps = {
+  title: string;
+  description: string;
+};
+
+export function SummaryTabHeader({ title, description }: SummaryTabHeaderProps) {
   return (
     <div>
-      <h1 className="text-[36px] font-bold text-primary-content">Your Blindspotting Report</h1>
-      <p className="mt-2 font-light text-secondary-content">
-        Your personalized report highlights potential blindspots across different dimensions of
-        leadership effectiveness.
-      </p>
+      <h1 className="text-[36px] font-bold text-primary-content">{title}</h1>
+      <p className="mt-2 font-light text-secondary-content">{description}</p>
     </div>
   );
 }
 
-export function SummaryTabContent() {
+export type SummaryTabContentProps = {
+  categories: string[];
+  calculatedReports: ReturnType<typeof calculateReportService>;
+};
+
+export function SummaryTabContent({ categories, calculatedReports }: SummaryTabContentProps) {
   return (
     <div className="mt-12">
       {/* First Row - Equal Columns */}
@@ -67,69 +75,16 @@ export function SummaryTabContent() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#E4E4E7]">
-              <tr>
-                <td className="px-6 py-4 text-xl font-bold text-primary-content">Motive</td>
-                <td className="px-6 py-4 font-light">Affiliation</td>
-                <td className="px-6 py-4 font-light">
-                  Your drive to connect can be so strong that it inadvertently sidelines other
-                  priorities.
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-xl font-bold text-primary-content">Traits</td>
-                <td className="px-6 py-4 font-light">Agreeableness</td>
-                <td className="px-6 py-4 font-light">
-                  You are likely agreeable and easily trust others compared to those who are
-                  comfortable with disagreement and in environments where they may have to play
-                  politics or manipulate others. You may be so trusting that you miss potential ill
-                  intentions or neglect to critically evaluate someone&apos;s actions or
-                  performance.
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-xl font-bold text-primary-content">Emotion</td>
-                <td className="px-6 py-4 font-light">No Specific Blindspot Found</td>
-                <td className="px-6 py-4 font-light">
-                  You likely show a solid balance in managing both your own emotions and
-                  understanding the emotions of others. How can you build on this balance to
-                  maintain your strengths and leverage them for greater success in your role?
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-xl font-bold text-primary-content">Intellect</td>
-                <td className="px-6 py-4 font-light">Creativity</td>
-                <td className="px-6 py-4 font-light">
-                  Others likely respect your ability to think differently and to problem solve.
-                  However, your quick mental speed and agility may leave others behind if you
-                  aren&apos;t careful to include them in the process. It may be hard for you when
-                  others aren&apos;t interested in your ideas, or struggle to understand the
-                  connections you make to unconventional or seemingly unrelated ideas and concepts.
-                  You may also struggle to balance your creativity within the guidelines, deadlines,
-                  and demands of your work environment.
-                </td>
-              </tr>
-              <tr>
-                <td className="px-6 py-4 text-xl font-bold">Behavior</td>
-                <td className="px-6 py-4 font-light">
-                  Communication: Low Criticality and High Support
-                </td>
-                <td className="px-6 py-4 font-light">
-                  <p>
-                    Low Criticality: You are often tolerant and accepting of others. You focus on
-                    what is &quot;right and good&quot; rather than focusing on what is &quot;wrong
-                    and bad.&quot; You may be more tolerant of the weaknesses in others. You may be
-                    an analytical thinker, but you are less likely to find fault or expect the worst
-                    from things, people, and ideas.
-                  </p>
-                  <p className="mt-4">
-                    High Support: Your communication is likely very supportive and kind in tone. You
-                    are attentive to what others share with you. You are trusting in nature, and so,
-                    might take others at face value. You might not ask critical questions to dig
-                    deeper and understand the full picture. You may struggle with holding others
-                    accountable and engaging in more difficult conversations.
-                  </p>
-                </td>
-              </tr>
+              {categories.map(category => {
+                const calculatedReport = calculatedReports[category];
+                return (
+                  <tr key={category}>
+                    <td className="px-6 py-4 text-xl font-bold text-primary-content">{category}</td>
+                    <td className="px-6 py-4 font-light">{calculatedReport[0].traitName}</td>
+                    <td className="px-6 py-4 font-light">{calculatedReport[0].overrideContent}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
