@@ -10,9 +10,7 @@ const config = {
   prefix: '',
   theme: {
     fontFamily: {
-      montserrat: ['var(--font-montserrat)', 'sans-serif'],
-      inter: ['var(--font-inter)', 'sans-serif'],
-      roboto: ['Roboto', 'sans-serif'],
+      lexend: ['Lexend', 'sans-serif'],
     },
     container: {
       center: true,

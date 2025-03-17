@@ -2,6 +2,8 @@ import {
   getCodeBatchesSearch,
   getCodesSearch,
   getCodesValidate,
+  getPublicCodes,
+  postAssessmentsSubmit,
   postCodesGenerate,
 } from '@/data/bees';
 import { initBeesOpenAPIConfig } from '@/data/bees/openapi-config';
@@ -12,6 +14,8 @@ export type BeesApiClientContextState = {
   getCodesSearch: typeof getCodesSearch;
   postCodesGenerate: typeof postCodesGenerate;
   getCodesValidate: typeof getCodesValidate;
+  postAssessmentsSubmit: typeof postAssessmentsSubmit;
+  getPublicCodes: typeof getPublicCodes;
 };
 
 export function createBeesApiClientContext(): BeesApiClientContextState {
@@ -22,6 +26,8 @@ export function createBeesApiClientContext(): BeesApiClientContextState {
     getCodesSearch: getCodesSearch,
     postCodesGenerate: postCodesGenerate,
     getCodesValidate: getCodesValidate,
+    postAssessmentsSubmit: postAssessmentsSubmit,
+    getPublicCodes: getPublicCodes,
   };
 }
 

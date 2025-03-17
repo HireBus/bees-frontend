@@ -11,7 +11,9 @@ export function Navbar({ className }: NavbarProps) {
   if (layoutsContext.hideNavbar) return null;
 
   return (
-    <div className={cn('flex min-h-24 items-center px-5 md:px-10', className)}>
+    <div
+      className={cn('absolute top-0 flex min-h-24 w-full items-center px-5 md:px-10', className)}
+    >
       <h1 className="text-2xl font-bold">Blind Spotting</h1>
     </div>
   );

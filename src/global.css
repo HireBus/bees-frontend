@@ -47,7 +47,6 @@
     --base-500: 0 0% 77%;
     --base-600: 223 3% 44%;
     --base-700: 229 6% 16%;
-    --font-family: 'Roboto, sans-serif';
   }
 
   .dark {
@@ -95,11 +94,22 @@
   }
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background font-['Roboto',_sans-serif] text-foreground;
+    @apply font-lexend bg-background text-foreground;
   }
 }

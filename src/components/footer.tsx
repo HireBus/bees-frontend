@@ -15,8 +15,8 @@ export function Footer({ className }: FooterProps) {
   return (
     <footer
       className={cn(
-        'bottom-0 flex h-[63px] w-full flex-col items-center justify-between gap-5 text-sm text-gray-600',
-        'md:flex-row',
+        'bottom-0 flex min-h-[63px] w-full flex-col items-center justify-between gap-5 p-5 text-sm text-gray-600',
+        'md:flex-row md:px-10',
         className
       )}
     >

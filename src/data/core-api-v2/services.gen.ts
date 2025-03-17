@@ -3,104 +3,7 @@
 import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
-import type {
-  PostSurveyResultsTrackEventData,
-  PostSurveyResultsTrackEventResponse,
-  DeleteSurveyResultsBulkArchiveData,
-  DeleteSurveyResultsBulkArchiveResponse,
-  PutSurveyResultsBulkUnarchiveData,
-  PutSurveyResultsBulkUnarchiveResponse,
-  PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeData,
-  PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeResponse,
-  DeleteJobsCleanTestsResponse,
-  GetJobsSearchData,
-  GetJobsSearchResponse,
-  GetJobsPublicByJobUuidDetailsData,
-  GetJobsPublicByJobUuidDetailsResponse,
-  GetJobsPublicData,
-  GetJobsPublicResponse,
-  PostJobsData,
-  PostJobsResponse,
-  GetJobsData,
-  GetJobsResponse,
-  PostJobsByJobIdDuplicateData,
-  PostJobsByJobIdDuplicateResponse,
-  GetJobsByJobIdData,
-  GetJobsByJobIdResponse,
-  PutJobsByJobIdData,
-  PutJobsByJobIdResponse,
-  DeleteJobsByJobIdData,
-  DeleteJobsByJobIdResponse,
-  DeleteJobsByJobIdArchiveData,
-  DeleteJobsByJobIdArchiveResponse,
-  PostJobsPublicByJobUuidApplyData,
-  PostJobsPublicByJobUuidApplyResponse,
-  PostJobsByJobIdImportCandidatesUploadPresignedUrlData,
-  PostJobsByJobIdImportCandidatesUploadPresignedUrlResponse,
-  PutJobsByJobIdImportCandidatesStatusData,
-  PutJobsByJobIdImportCandidatesStatusResponse,
-  GetJobsByJobIdImportCandidatesStatusData,
-  GetJobsByJobIdImportCandidatesStatusResponse,
-  PostJobsByJobIdImportCandidatesConfirmData,
-  PostJobsByJobIdImportCandidatesConfirmResponse,
-  PostJobsGenerateData,
-  PostJobsGenerateResponse,
-  PostJobsAdsGenerateData,
-  PostJobsAdsGenerateResponse,
-  DeleteJobApplicationTemplatesCleanTestsResponse,
-  PostJobApplicationTemplatesData,
-  PostJobApplicationTemplatesResponse,
-  GetJobApplicationTemplatesData,
-  GetJobApplicationTemplatesResponse,
-  GetJobApplicationTemplatesByJobApplicationTemplateIdData,
-  GetJobApplicationTemplatesByJobApplicationTemplateIdResponse,
-  PutJobApplicationTemplatesByJobApplicationTemplateIdData,
-  PutJobApplicationTemplatesByJobApplicationTemplateIdResponse,
-  DeleteJobApplicationTemplatesByJobApplicationTemplateIdData,
-  DeleteJobApplicationTemplatesByJobApplicationTemplateIdResponse,
-  DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveData,
-  DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveResponse,
-  GetJobApplicationResponsesCandidateReferenceData,
-  GetJobApplicationResponsesCandidateReferenceResponse,
-  PutJobApplicationResponsesCandidateReferenceData,
-  PutJobApplicationResponsesCandidateReferenceResponse,
-  GetJobApplicationResponsesData,
-  GetJobApplicationResponsesResponse,
-  PutJobApplicationResponsesCandidateReferenceSubmitData,
-  PutJobApplicationResponsesCandidateReferenceSubmitResponse,
-  PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeData,
-  PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeResponse,
-  GetPipelinesData,
-  GetPipelinesResponse,
-  PostPipelinesCreateDefaultData,
-  PostPipelinesCreateDefaultResponse,
-  PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfData,
-  PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfResponse,
-  PostGhlForcePullDataData,
-  PostGhlForcePullDataResponse,
-  PostHubspotWebhooksCreateCompanyData,
-  PostHubspotWebhooksCreateCompanyResponse,
-  GetChatCandidateData,
-  GetChatCandidateResponse,
-  PostChatFeedbackData,
-  PostChatFeedbackResponse,
-  PostChatSendData,
-  PostChatSendResponse,
-  PostCandidatesResumeAnalysisFeedbackData,
-  PostCandidatesResumeAnalysisFeedbackResponse,
-  PostCandidatesScoringCalculateData,
-  PostCandidatesScoringCalculateResponse,
-  GetCandidatesScoringScoresData,
-  GetCandidatesScoringScoresResponse,
-  GetTraitScaleMappingsReportsSearchData,
-  GetTraitScaleMappingsReportsSearchResponse,
-  PostTraitScaleMappingsReportsData,
-  PostTraitScaleMappingsReportsResponse,
-  GetTraitScaleMappingsReportsByIdData,
-  GetTraitScaleMappingsReportsByIdResponse,
-  PutTraitScaleMappingsReportsByIdData,
-  PutTraitScaleMappingsReportsByIdResponse,
-} from './types.gen';
+import type { PostSurveyResultsTrackEventData, PostSurveyResultsTrackEventResponse, DeleteSurveyResultsBulkArchiveData, DeleteSurveyResultsBulkArchiveResponse, PutSurveyResultsBulkUnarchiveData, PutSurveyResultsBulkUnarchiveResponse, PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeData, PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeResponse, DeleteJobsCleanTestsResponse, GetJobsSearchData, GetJobsSearchResponse, GetJobsPublicByJobUuidDetailsData, GetJobsPublicByJobUuidDetailsResponse, GetJobsPublicData, GetJobsPublicResponse, PostJobsData, PostJobsResponse, GetJobsData, GetJobsResponse, PostJobsByJobIdDuplicateData, PostJobsByJobIdDuplicateResponse, GetJobsByJobIdData, GetJobsByJobIdResponse, PutJobsByJobIdData, PutJobsByJobIdResponse, DeleteJobsByJobIdData, DeleteJobsByJobIdResponse, DeleteJobsByJobIdArchiveData, DeleteJobsByJobIdArchiveResponse, PostJobsPublicByJobUuidApplyData, PostJobsPublicByJobUuidApplyResponse, PostJobsByJobIdImportCandidatesUploadPresignedUrlData, PostJobsByJobIdImportCandidatesUploadPresignedUrlResponse, PutJobsByJobIdImportCandidatesStatusData, PutJobsByJobIdImportCandidatesStatusResponse, GetJobsByJobIdImportCandidatesStatusData, GetJobsByJobIdImportCandidatesStatusResponse, PostJobsByJobIdImportCandidatesConfirmData, PostJobsByJobIdImportCandidatesConfirmResponse, PostJobsGenerateData, PostJobsGenerateResponse, PostJobsAdsGenerateData, PostJobsAdsGenerateResponse, DeleteJobApplicationTemplatesCleanTestsResponse, PostJobApplicationTemplatesData, PostJobApplicationTemplatesResponse, GetJobApplicationTemplatesData, GetJobApplicationTemplatesResponse, GetJobApplicationTemplatesByJobApplicationTemplateIdData, GetJobApplicationTemplatesByJobApplicationTemplateIdResponse, PutJobApplicationTemplatesByJobApplicationTemplateIdData, PutJobApplicationTemplatesByJobApplicationTemplateIdResponse, DeleteJobApplicationTemplatesByJobApplicationTemplateIdData, DeleteJobApplicationTemplatesByJobApplicationTemplateIdResponse, DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveData, DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveResponse, GetJobApplicationResponsesCandidateReferenceData, GetJobApplicationResponsesCandidateReferenceResponse, PutJobApplicationResponsesCandidateReferenceData, PutJobApplicationResponsesCandidateReferenceResponse, GetJobApplicationResponsesData, GetJobApplicationResponsesResponse, PutJobApplicationResponsesCandidateReferenceSubmitData, PutJobApplicationResponsesCandidateReferenceSubmitResponse, PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeData, PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeResponse, GetPipelinesData, GetPipelinesResponse, PostPipelinesCreateDefaultData, PostPipelinesCreateDefaultResponse, PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfData, PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfResponse, PostGhlForcePullDataData, PostGhlForcePullDataResponse, PostHubspotWebhooksCreateCompanyData, PostHubspotWebhooksCreateCompanyResponse, GetChatCandidateData, GetChatCandidateResponse, PostChatFeedbackData, PostChatFeedbackResponse, PostChatSendData, PostChatSendResponse, PostCandidatesResumeAnalysisFeedbackData, PostCandidatesResumeAnalysisFeedbackResponse, PostCandidatesScoringCalculateData, PostCandidatesScoringCalculateResponse, GetCandidatesScoringScoresData, GetCandidatesScoringScoresResponse, GetTraitScaleMappingsReportsSearchData, GetTraitScaleMappingsReportsSearchResponse, PostTraitScaleMappingsReportsData, PostTraitScaleMappingsReportsResponse, GetTraitScaleMappingsReportsByIdData, GetTraitScaleMappingsReportsByIdResponse, PutTraitScaleMappingsReportsByIdData, PutTraitScaleMappingsReportsByIdResponse } from './types.gen';
 
 /**
  * Track assessment event
@@ -110,16 +13,12 @@ import type {
  * @returns unknown Event tracked successfully
  * @throws ApiError
  */
-export const postSurveyResultsTrackEvent = (
-  data: PostSurveyResultsTrackEventData = {}
-): CancelablePromise<PostSurveyResultsTrackEventResponse> => {
-  return __request(OpenAPI, {
+export const postSurveyResultsTrackEvent = (data: PostSurveyResultsTrackEventData = {}): CancelablePromise<PostSurveyResultsTrackEventResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/survey-results/track-event',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Bulk archive survey results
@@ -129,16 +28,12 @@ export const postSurveyResultsTrackEvent = (
  * @returns string Survey results archived successfully
  * @throws ApiError
  */
-export const deleteSurveyResultsBulkArchive = (
-  data: DeleteSurveyResultsBulkArchiveData = {}
-): CancelablePromise<DeleteSurveyResultsBulkArchiveResponse> => {
-  return __request(OpenAPI, {
+export const deleteSurveyResultsBulkArchive = (data: DeleteSurveyResultsBulkArchiveData = {}): CancelablePromise<DeleteSurveyResultsBulkArchiveResponse> => { return __request(OpenAPI, {
     method: 'DELETE',
     url: '/survey-results/bulk-archive',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Bulk unarchive survey results
@@ -148,16 +43,12 @@ export const deleteSurveyResultsBulkArchive = (
  * @returns string Survey results unarchived successfully
  * @throws ApiError
  */
-export const putSurveyResultsBulkUnarchive = (
-  data: PutSurveyResultsBulkUnarchiveData = {}
-): CancelablePromise<PutSurveyResultsBulkUnarchiveResponse> => {
-  return __request(OpenAPI, {
+export const putSurveyResultsBulkUnarchive = (data: PutSurveyResultsBulkUnarchiveData = {}): CancelablePromise<PutSurveyResultsBulkUnarchiveResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/survey-results/bulk-unarchive',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Get upload presigned url for resume
@@ -168,19 +59,15 @@ export const putSurveyResultsBulkUnarchive = (
  * @returns GetUploadPresignedUrlForResumeResponseDTO Upload presigned url retrieved successfully
  * @throws ApiError
  */
-export const postSurveyResultsBySurveyResultIdUploadPresignedUrlResume = (
-  data: PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeData
-): CancelablePromise<PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeResponse> => {
-  return __request(OpenAPI, {
+export const postSurveyResultsBySurveyResultIdUploadPresignedUrlResume = (data: PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeData): CancelablePromise<PostSurveyResultsBySurveyResultIdUploadPresignedUrlResumeResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/survey-results/{survey_result_id}/upload-presigned-url/resume',
     path: {
-      survey_result_id: data.surveyResultId,
+        survey_result_id: data.surveyResultId
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Clean test jobs
@@ -188,12 +75,10 @@ export const postSurveyResultsBySurveyResultIdUploadPresignedUrlResume = (
  * @returns string Test jobs cleaned successfully
  * @throws ApiError
  */
-export const deleteJobsCleanTests = (): CancelablePromise<DeleteJobsCleanTestsResponse> => {
-  return __request(OpenAPI, {
+export const deleteJobsCleanTests = (): CancelablePromise<DeleteJobsCleanTestsResponse> => { return __request(OpenAPI, {
     method: 'DELETE',
-    url: '/jobs/clean-tests',
-  });
-};
+    url: '/jobs/clean-tests'
+}); };
 
 /**
  * Search jobs
@@ -221,35 +106,31 @@ export const deleteJobsCleanTests = (): CancelablePromise<DeleteJobsCleanTestsRe
  * @returns SearchJobsResponseDTO Jobs retrieved successfully
  * @throws ApiError
  */
-export const getJobsSearch = (
-  data: GetJobsSearchData = {}
-): CancelablePromise<GetJobsSearchResponse> => {
-  return __request(OpenAPI, {
+export const getJobsSearch = (data: GetJobsSearchData = {}): CancelablePromise<GetJobsSearchResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/jobs/search',
     query: {
-      limit: data.limit,
-      page: data.page,
-      sort_by: data.sortBy,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      include_tests: data.includeTests,
-      search: data.search,
-      job_id: data.jobId,
-      company_id: data.companyId,
-      created_by_user_id: data.createdByUserId,
-      updated_by_user_id: data.updatedByUserId,
-      archived_by_user_id: data.archivedByUserId,
-      status: data.status,
-      start_date: data.startDate,
-      end_date: data.endDate,
-      sort_by_company_field: data.sortByCompanyField,
-      sort_by_location_field: data.sortByLocationField,
-      sort_by_department_field: data.sortByDepartmentField,
-      sort_by_computed_field: data.sortByComputedField,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        sort_by: data.sortBy,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        include_tests: data.includeTests,
+        search: data.search,
+        job_id: data.jobId,
+        company_id: data.companyId,
+        created_by_user_id: data.createdByUserId,
+        updated_by_user_id: data.updatedByUserId,
+        archived_by_user_id: data.archivedByUserId,
+        status: data.status,
+        start_date: data.startDate,
+        end_date: data.endDate,
+        sort_by_company_field: data.sortByCompanyField,
+        sort_by_location_field: data.sortByLocationField,
+        sort_by_department_field: data.sortByDepartmentField,
+        sort_by_computed_field: data.sortByComputedField
+    }
+}); };
 
 /**
  * Retrieve a public job
@@ -259,17 +140,13 @@ export const getJobsSearch = (
  * @returns GetJobPublicResponseDTO Job public retrieved successfully
  * @throws ApiError
  */
-export const getJobsPublicByJobUuidDetails = (
-  data: GetJobsPublicByJobUuidDetailsData
-): CancelablePromise<GetJobsPublicByJobUuidDetailsResponse> => {
-  return __request(OpenAPI, {
+export const getJobsPublicByJobUuidDetails = (data: GetJobsPublicByJobUuidDetailsData): CancelablePromise<GetJobsPublicByJobUuidDetailsResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/jobs/public/{job_uuid}/details',
     path: {
-      job_uuid: data.jobUuid,
-    },
-  });
-};
+        job_uuid: data.jobUuid
+    }
+}); };
 
 /**
  * List all public jobs
@@ -283,21 +160,17 @@ export const getJobsPublicByJobUuidDetails = (
  * @returns GetPublicJobsResponseDTO Jobs retrieved successfully
  * @throws ApiError
  */
-export const getJobsPublic = (
-  data: GetJobsPublicData = {}
-): CancelablePromise<GetJobsPublicResponse> => {
-  return __request(OpenAPI, {
+export const getJobsPublic = (data: GetJobsPublicData = {}): CancelablePromise<GetJobsPublicResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/jobs/public',
     query: {
-      limit: data.limit,
-      page: data.page,
-      sort_by: data.sortBy,
-      sort_by_location_field: data.sortByLocationField,
-      order_by: data.orderBy,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        sort_by: data.sortBy,
+        sort_by_location_field: data.sortByLocationField,
+        order_by: data.orderBy
+    }
+}); };
 
 /**
  * Create a job
@@ -307,14 +180,12 @@ export const getJobsPublic = (
  * @returns CreateJobResponseDTO Job created successfully
  * @throws ApiError
  */
-export const postJobs = (data: PostJobsData = {}): CancelablePromise<PostJobsResponse> => {
-  return __request(OpenAPI, {
+export const postJobs = (data: PostJobsData = {}): CancelablePromise<PostJobsResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * List all jobs
@@ -329,20 +200,18 @@ export const postJobs = (data: PostJobsData = {}): CancelablePromise<PostJobsRes
  * @returns GetJobsResponseDTO Jobs retrieved successfully
  * @throws ApiError
  */
-export const getJobs = (data: GetJobsData = {}): CancelablePromise<GetJobsResponse> => {
-  return __request(OpenAPI, {
+export const getJobs = (data: GetJobsData = {}): CancelablePromise<GetJobsResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/jobs',
     query: {
-      limit: data.limit,
-      page: data.page,
-      sort_by: data.sortBy,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      include_tests: data.includeTests,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        sort_by: data.sortBy,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        include_tests: data.includeTests
+    }
+}); };
 
 /**
  * Duplicate a job
@@ -352,17 +221,13 @@ export const getJobs = (data: GetJobsData = {}): CancelablePromise<GetJobsRespon
  * @returns CreateJobResponseDTO Job duplicated successfully
  * @throws ApiError
  */
-export const postJobsByJobIdDuplicate = (
-  data: PostJobsByJobIdDuplicateData
-): CancelablePromise<PostJobsByJobIdDuplicateResponse> => {
-  return __request(OpenAPI, {
+export const postJobsByJobIdDuplicate = (data: PostJobsByJobIdDuplicateData): CancelablePromise<PostJobsByJobIdDuplicateResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs/{job_id}/duplicate',
     path: {
-      job_id: data.jobId,
-    },
-  });
-};
+        job_id: data.jobId
+    }
+}); };
 
 /**
  * Retrieve a job
@@ -372,17 +237,13 @@ export const postJobsByJobIdDuplicate = (
  * @returns GetJobResponseDTO Job retrieved successfully
  * @throws ApiError
  */
-export const getJobsByJobId = (
-  data: GetJobsByJobIdData
-): CancelablePromise<GetJobsByJobIdResponse> => {
-  return __request(OpenAPI, {
+export const getJobsByJobId = (data: GetJobsByJobIdData): CancelablePromise<GetJobsByJobIdResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/jobs/{job_id}',
     path: {
-      job_id: data.jobId,
-    },
-  });
-};
+        job_id: data.jobId
+    }
+}); };
 
 /**
  * Update a job
@@ -393,19 +254,15 @@ export const getJobsByJobId = (
  * @returns UpdateJobResponseDTO Job updated successfully
  * @throws ApiError
  */
-export const putJobsByJobId = (
-  data: PutJobsByJobIdData
-): CancelablePromise<PutJobsByJobIdResponse> => {
-  return __request(OpenAPI, {
+export const putJobsByJobId = (data: PutJobsByJobIdData): CancelablePromise<PutJobsByJobIdResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/jobs/{job_id}',
     path: {
-      job_id: data.jobId,
+        job_id: data.jobId
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Delete a job
@@ -415,17 +272,13 @@ export const putJobsByJobId = (
  * @returns DeleteJobResponseDTO Job deleted successfully
  * @throws ApiError
  */
-export const deleteJobsByJobId = (
-  data: DeleteJobsByJobIdData
-): CancelablePromise<DeleteJobsByJobIdResponse> => {
-  return __request(OpenAPI, {
+export const deleteJobsByJobId = (data: DeleteJobsByJobIdData): CancelablePromise<DeleteJobsByJobIdResponse> => { return __request(OpenAPI, {
     method: 'DELETE',
     url: '/jobs/{job_id}',
     path: {
-      job_id: data.jobId,
-    },
-  });
-};
+        job_id: data.jobId
+    }
+}); };
 
 /**
  * Archive a job
@@ -435,17 +288,13 @@ export const deleteJobsByJobId = (
  * @returns ArchiveJobResponseDTO Job archived successfully
  * @throws ApiError
  */
-export const deleteJobsByJobIdArchive = (
-  data: DeleteJobsByJobIdArchiveData
-): CancelablePromise<DeleteJobsByJobIdArchiveResponse> => {
-  return __request(OpenAPI, {
+export const deleteJobsByJobIdArchive = (data: DeleteJobsByJobIdArchiveData): CancelablePromise<DeleteJobsByJobIdArchiveResponse> => { return __request(OpenAPI, {
     method: 'DELETE',
     url: '/jobs/{job_id}/archive',
     path: {
-      job_id: data.jobId,
-    },
-  });
-};
+        job_id: data.jobId
+    }
+}); };
 
 /**
  * Apply to a job
@@ -456,19 +305,15 @@ export const deleteJobsByJobIdArchive = (
  * @returns ApplyJobResponseDTO Job applied successfully
  * @throws ApiError
  */
-export const postJobsPublicByJobUuidApply = (
-  data: PostJobsPublicByJobUuidApplyData
-): CancelablePromise<PostJobsPublicByJobUuidApplyResponse> => {
-  return __request(OpenAPI, {
+export const postJobsPublicByJobUuidApply = (data: PostJobsPublicByJobUuidApplyData): CancelablePromise<PostJobsPublicByJobUuidApplyResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs/public/{job_uuid}/apply',
     path: {
-      job_uuid: data.jobUuid,
+        job_uuid: data.jobUuid
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Get upload presigned url for import candidates
@@ -479,19 +324,15 @@ export const postJobsPublicByJobUuidApply = (
  * @returns UploadPresignedUrlForImportCandidatesUploadPresignedUrlResponseDTO Upload presigned url retrieved successfully
  * @throws ApiError
  */
-export const postJobsByJobIdImportCandidatesUploadPresignedUrl = (
-  data: PostJobsByJobIdImportCandidatesUploadPresignedUrlData
-): CancelablePromise<PostJobsByJobIdImportCandidatesUploadPresignedUrlResponse> => {
-  return __request(OpenAPI, {
+export const postJobsByJobIdImportCandidatesUploadPresignedUrl = (data: PostJobsByJobIdImportCandidatesUploadPresignedUrlData): CancelablePromise<PostJobsByJobIdImportCandidatesUploadPresignedUrlResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs/{job_id}/import-candidates/upload-presigned-url',
     path: {
-      job_id: data.jobId,
+        job_id: data.jobId
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Update import candidates status
@@ -502,19 +343,15 @@ export const postJobsByJobIdImportCandidatesUploadPresignedUrl = (
  * @returns UpdateImportCandidatesStatusResponseDTO Update import candidates status successfully
  * @throws ApiError
  */
-export const putJobsByJobIdImportCandidatesStatus = (
-  data: PutJobsByJobIdImportCandidatesStatusData
-): CancelablePromise<PutJobsByJobIdImportCandidatesStatusResponse> => {
-  return __request(OpenAPI, {
+export const putJobsByJobIdImportCandidatesStatus = (data: PutJobsByJobIdImportCandidatesStatusData): CancelablePromise<PutJobsByJobIdImportCandidatesStatusResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/jobs/{job_id}/import-candidates/status',
     path: {
-      job_id: data.jobId,
+        job_id: data.jobId
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Get import candidates status
@@ -524,17 +361,13 @@ export const putJobsByJobIdImportCandidatesStatus = (
  * @returns GetImportCandidatesStatusResponseDTO Get import candidates status successfully
  * @throws ApiError
  */
-export const getJobsByJobIdImportCandidatesStatus = (
-  data: GetJobsByJobIdImportCandidatesStatusData
-): CancelablePromise<GetJobsByJobIdImportCandidatesStatusResponse> => {
-  return __request(OpenAPI, {
+export const getJobsByJobIdImportCandidatesStatus = (data: GetJobsByJobIdImportCandidatesStatusData): CancelablePromise<GetJobsByJobIdImportCandidatesStatusResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/jobs/{job_id}/import-candidates/status',
     path: {
-      job_id: data.jobId,
-    },
-  });
-};
+        job_id: data.jobId
+    }
+}); };
 
 /**
  * Confirm import candidates
@@ -545,19 +378,15 @@ export const getJobsByJobIdImportCandidatesStatus = (
  * @returns unknown Confirm import candidates successfully
  * @throws ApiError
  */
-export const postJobsByJobIdImportCandidatesConfirm = (
-  data: PostJobsByJobIdImportCandidatesConfirmData
-): CancelablePromise<PostJobsByJobIdImportCandidatesConfirmResponse> => {
-  return __request(OpenAPI, {
+export const postJobsByJobIdImportCandidatesConfirm = (data: PostJobsByJobIdImportCandidatesConfirmData): CancelablePromise<PostJobsByJobIdImportCandidatesConfirmResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs/{job_id}/import-candidates/confirm',
     path: {
-      job_id: data.jobId,
+        job_id: data.jobId
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Generate job posting
@@ -567,16 +396,12 @@ export const postJobsByJobIdImportCandidatesConfirm = (
  * @returns unknown Job generated successfully
  * @throws ApiError
  */
-export const postJobsGenerate = (
-  data: PostJobsGenerateData = {}
-): CancelablePromise<PostJobsGenerateResponse> => {
-  return __request(OpenAPI, {
+export const postJobsGenerate = (data: PostJobsGenerateData = {}): CancelablePromise<PostJobsGenerateResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs/generate',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Generate job ad
@@ -586,16 +411,12 @@ export const postJobsGenerate = (
  * @returns unknown Job ad generated successfully
  * @throws ApiError
  */
-export const postJobsAdsGenerate = (
-  data: PostJobsAdsGenerateData = {}
-): CancelablePromise<PostJobsAdsGenerateResponse> => {
-  return __request(OpenAPI, {
+export const postJobsAdsGenerate = (data: PostJobsAdsGenerateData = {}): CancelablePromise<PostJobsAdsGenerateResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/jobs/ads/generate',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Clean test job application templates
@@ -603,13 +424,10 @@ export const postJobsAdsGenerate = (
  * @returns string Test jobs cleaned successfully
  * @throws ApiError
  */
-export const deleteJobApplicationTemplatesCleanTests =
-  (): CancelablePromise<DeleteJobApplicationTemplatesCleanTestsResponse> => {
-    return __request(OpenAPI, {
-      method: 'DELETE',
-      url: '/job-application-templates/clean-tests',
-    });
-  };
+export const deleteJobApplicationTemplatesCleanTests = (): CancelablePromise<DeleteJobApplicationTemplatesCleanTestsResponse> => { return __request(OpenAPI, {
+    method: 'DELETE',
+    url: '/job-application-templates/clean-tests'
+}); };
 
 /**
  * Create a job application template
@@ -619,16 +437,12 @@ export const deleteJobApplicationTemplatesCleanTests =
  * @returns JobApplicationTemplate Job application template created successfully
  * @throws ApiError
  */
-export const postJobApplicationTemplates = (
-  data: PostJobApplicationTemplatesData = {}
-): CancelablePromise<PostJobApplicationTemplatesResponse> => {
-  return __request(OpenAPI, {
+export const postJobApplicationTemplates = (data: PostJobApplicationTemplatesData = {}): CancelablePromise<PostJobApplicationTemplatesResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/job-application-templates',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * List all job application templates
@@ -643,22 +457,18 @@ export const postJobApplicationTemplates = (
  * @returns unknown Job application templates retrieved successfully
  * @throws ApiError
  */
-export const getJobApplicationTemplates = (
-  data: GetJobApplicationTemplatesData = {}
-): CancelablePromise<GetJobApplicationTemplatesResponse> => {
-  return __request(OpenAPI, {
+export const getJobApplicationTemplates = (data: GetJobApplicationTemplatesData = {}): CancelablePromise<GetJobApplicationTemplatesResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/job-application-templates',
     query: {
-      limit: data.limit,
-      page: data.page,
-      sort_by: data.sortBy,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      include_tests: data.includeTests,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        sort_by: data.sortBy,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        include_tests: data.includeTests
+    }
+}); };
 
 /**
  * Retrieve a job application template
@@ -668,17 +478,13 @@ export const getJobApplicationTemplates = (
  * @returns JobApplicationTemplate Job application template retrieved successfully
  * @throws ApiError
  */
-export const getJobApplicationTemplatesByJobApplicationTemplateId = (
-  data: GetJobApplicationTemplatesByJobApplicationTemplateIdData
-): CancelablePromise<GetJobApplicationTemplatesByJobApplicationTemplateIdResponse> => {
-  return __request(OpenAPI, {
+export const getJobApplicationTemplatesByJobApplicationTemplateId = (data: GetJobApplicationTemplatesByJobApplicationTemplateIdData): CancelablePromise<GetJobApplicationTemplatesByJobApplicationTemplateIdResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/job-application-templates/{job_application_template_id}',
     path: {
-      job_application_template_id: data.jobApplicationTemplateId,
-    },
-  });
-};
+        job_application_template_id: data.jobApplicationTemplateId
+    }
+}); };
 
 /**
  * Update a job application template
@@ -689,19 +495,15 @@ export const getJobApplicationTemplatesByJobApplicationTemplateId = (
  * @returns JobApplicationTemplate Job application template updated successfully
  * @throws ApiError
  */
-export const putJobApplicationTemplatesByJobApplicationTemplateId = (
-  data: PutJobApplicationTemplatesByJobApplicationTemplateIdData
-): CancelablePromise<PutJobApplicationTemplatesByJobApplicationTemplateIdResponse> => {
-  return __request(OpenAPI, {
+export const putJobApplicationTemplatesByJobApplicationTemplateId = (data: PutJobApplicationTemplatesByJobApplicationTemplateIdData): CancelablePromise<PutJobApplicationTemplatesByJobApplicationTemplateIdResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/job-application-templates/{job_application_template_id}',
     path: {
-      job_application_template_id: data.jobApplicationTemplateId,
+        job_application_template_id: data.jobApplicationTemplateId
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Delete a job application template
@@ -711,17 +513,13 @@ export const putJobApplicationTemplatesByJobApplicationTemplateId = (
  * @returns JobApplicationTemplate Job application template deleted successfully
  * @throws ApiError
  */
-export const deleteJobApplicationTemplatesByJobApplicationTemplateId = (
-  data: DeleteJobApplicationTemplatesByJobApplicationTemplateIdData
-): CancelablePromise<DeleteJobApplicationTemplatesByJobApplicationTemplateIdResponse> => {
-  return __request(OpenAPI, {
+export const deleteJobApplicationTemplatesByJobApplicationTemplateId = (data: DeleteJobApplicationTemplatesByJobApplicationTemplateIdData): CancelablePromise<DeleteJobApplicationTemplatesByJobApplicationTemplateIdResponse> => { return __request(OpenAPI, {
     method: 'DELETE',
     url: '/job-application-templates/{job_application_template_id}',
     path: {
-      job_application_template_id: data.jobApplicationTemplateId,
-    },
-  });
-};
+        job_application_template_id: data.jobApplicationTemplateId
+    }
+}); };
 
 /**
  * Archive a job application template
@@ -731,17 +529,13 @@ export const deleteJobApplicationTemplatesByJobApplicationTemplateId = (
  * @returns JobApplicationTemplate Job archived successfully
  * @throws ApiError
  */
-export const deleteJobApplicationTemplatesByJobApplicationTemplateIdArchive = (
-  data: DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveData
-): CancelablePromise<DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveResponse> => {
-  return __request(OpenAPI, {
+export const deleteJobApplicationTemplatesByJobApplicationTemplateIdArchive = (data: DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveData): CancelablePromise<DeleteJobApplicationTemplatesByJobApplicationTemplateIdArchiveResponse> => { return __request(OpenAPI, {
     method: 'DELETE',
     url: '/job-application-templates/{job_application_template_id}/archive',
     path: {
-      job_application_template_id: data.jobApplicationTemplateId,
-    },
-  });
-};
+        job_application_template_id: data.jobApplicationTemplateId
+    }
+}); };
 
 /**
  * Retrieve a job application response by candidate reference
@@ -751,17 +545,13 @@ export const deleteJobApplicationTemplatesByJobApplicationTemplateIdArchive = (
  * @returns JobApplicationResponse Job application response retrieved successfully
  * @throws ApiError
  */
-export const getJobApplicationResponsesCandidateReference = (
-  data: GetJobApplicationResponsesCandidateReferenceData
-): CancelablePromise<GetJobApplicationResponsesCandidateReferenceResponse> => {
-  return __request(OpenAPI, {
+export const getJobApplicationResponsesCandidateReference = (data: GetJobApplicationResponsesCandidateReferenceData): CancelablePromise<GetJobApplicationResponsesCandidateReferenceResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/job-application-responses/candidate-reference',
     query: {
-      candidate_reference: data.candidateReference,
-    },
-  });
-};
+        candidate_reference: data.candidateReference
+    }
+}); };
 
 /**
  * Update a job application response by candidate reference
@@ -772,19 +562,15 @@ export const getJobApplicationResponsesCandidateReference = (
  * @returns JobApplicationResponse Job application response updated successfully
  * @throws ApiError
  */
-export const putJobApplicationResponsesCandidateReference = (
-  data: PutJobApplicationResponsesCandidateReferenceData
-): CancelablePromise<PutJobApplicationResponsesCandidateReferenceResponse> => {
-  return __request(OpenAPI, {
+export const putJobApplicationResponsesCandidateReference = (data: PutJobApplicationResponsesCandidateReferenceData): CancelablePromise<PutJobApplicationResponsesCandidateReferenceResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/job-application-responses/candidate-reference',
     query: {
-      candidate_reference: data.candidateReference,
+        candidate_reference: data.candidateReference
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * List all job application responses
@@ -799,22 +585,18 @@ export const putJobApplicationResponsesCandidateReference = (
  * @returns GetJobApplicationResponsesResponseDTO Job application responses retrieved successfully
  * @throws ApiError
  */
-export const getJobApplicationResponses = (
-  data: GetJobApplicationResponsesData = {}
-): CancelablePromise<GetJobApplicationResponsesResponse> => {
-  return __request(OpenAPI, {
+export const getJobApplicationResponses = (data: GetJobApplicationResponsesData = {}): CancelablePromise<GetJobApplicationResponsesResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/job-application-responses',
     query: {
-      limit: data.limit,
-      page: data.page,
-      sort_by: data.sortBy,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      include_tests: data.includeTests,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        sort_by: data.sortBy,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        include_tests: data.includeTests
+    }
+}); };
 
 /**
  * Submit a job application response by candidate reference
@@ -824,17 +606,13 @@ export const getJobApplicationResponses = (
  * @returns JobApplicationResponse Job application response submitted successfully
  * @throws ApiError
  */
-export const putJobApplicationResponsesCandidateReferenceSubmit = (
-  data: PutJobApplicationResponsesCandidateReferenceSubmitData
-): CancelablePromise<PutJobApplicationResponsesCandidateReferenceSubmitResponse> => {
-  return __request(OpenAPI, {
+export const putJobApplicationResponsesCandidateReferenceSubmit = (data: PutJobApplicationResponsesCandidateReferenceSubmitData): CancelablePromise<PutJobApplicationResponsesCandidateReferenceSubmitResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/job-application-responses/candidate-reference/submit',
     query: {
-      candidate_reference: data.candidateReference,
-    },
-  });
-};
+        candidate_reference: data.candidateReference
+    }
+}); };
 
 /**
  * Get upload presigned url for resume
@@ -845,19 +623,15 @@ export const putJobApplicationResponsesCandidateReferenceSubmit = (
  * @returns GetUploadPresignedUrlForResumeResponseDTO Upload presigned url retrieved successfully
  * @throws ApiError
  */
-export const postJobApplicationResponsesCandidateReferenceUploadPresignedUrlResume = (
-  data: PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeData
-): CancelablePromise<PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeResponse> => {
-  return __request(OpenAPI, {
+export const postJobApplicationResponsesCandidateReferenceUploadPresignedUrlResume = (data: PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeData): CancelablePromise<PostJobApplicationResponsesCandidateReferenceUploadPresignedUrlResumeResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/job-application-responses/candidate-reference/upload-presigned-url/resume',
     query: {
-      candidate_reference: data.candidateReference,
+        candidate_reference: data.candidateReference
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * List all pipelines for a given company
@@ -866,17 +640,13 @@ export const postJobApplicationResponsesCandidateReferenceUploadPresignedUrlResu
  * @returns GetPipelinesResponseDTO Pipelines retrieved successfully
  * @throws ApiError
  */
-export const getPipelines = (
-  data: GetPipelinesData = {}
-): CancelablePromise<GetPipelinesResponse> => {
-  return __request(OpenAPI, {
+export const getPipelines = (data: GetPipelinesData = {}): CancelablePromise<GetPipelinesResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/pipelines',
     query: {
-      company_id: data.companyId,
-    },
-  });
-};
+        company_id: data.companyId
+    }
+}); };
 
 /**
  * Create default pipelines for company list
@@ -885,17 +655,13 @@ export const getPipelines = (
  * @returns unknown Pipelines created successfully
  * @throws ApiError
  */
-export const postPipelinesCreateDefault = (
-  data: PostPipelinesCreateDefaultData = {}
-): CancelablePromise<PostPipelinesCreateDefaultResponse> => {
-  return __request(OpenAPI, {
+export const postPipelinesCreateDefault = (data: PostPipelinesCreateDefaultData = {}): CancelablePromise<PostPipelinesCreateDefaultResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/pipelines/create-default',
     query: {
-      company_id: data.companyId,
-    },
-  });
-};
+        company_id: data.companyId
+    }
+}); };
 
 /**
  * GHL Webhook
@@ -905,20 +671,16 @@ export const postPipelinesCreateDefault = (
  * @returns unknown GHL Webhook Received
  * @throws ApiError
  */
-export const postGhlWebhook907Bb31e4D534519BeddE4F1672023Ff = (
-  data: PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfData = {}
-): CancelablePromise<PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfResponse> => {
-  return __request(OpenAPI, {
+export const postGhlWebhook907Bb31e4D534519BeddE4F1672023Ff = (data: PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfData = {}): CancelablePromise<PostGhlWebhook907Bb31E4D534519BeddE4F1672023FfResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/ghl/webhook/907bb31e-4d53-4519-bedd-e4f1672023ff',
     body: data.requestBody,
     mediaType: 'application/json',
     errors: {
-      400: 'Bad Request - Unhandled webhook type',
-      500: 'Internal Server Error',
-    },
-  });
-};
+        400: 'Bad Request - Unhandled webhook type',
+        500: 'Internal Server Error'
+    }
+}); };
 
 /**
  * Force pull data from GHL
@@ -928,17 +690,13 @@ export const postGhlWebhook907Bb31e4D534519BeddE4F1672023Ff = (
  * @returns unknown Data pulled successfully
  * @throws ApiError
  */
-export const postGhlForcePullData = (
-  data: PostGhlForcePullDataData = {}
-): CancelablePromise<PostGhlForcePullDataResponse> => {
-  return __request(OpenAPI, {
+export const postGhlForcePullData = (data: PostGhlForcePullDataData = {}): CancelablePromise<PostGhlForcePullDataResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/ghl/force-pull-data',
     query: {
-      company_id: data.companyId,
-    },
-  });
-};
+        company_id: data.companyId
+    }
+}); };
 
 /**
  * Create a company via hubspot webhook
@@ -948,20 +706,16 @@ export const postGhlForcePullData = (
  * @returns unknown Company created successfully
  * @throws ApiError
  */
-export const postHubspotWebhooksCreateCompany = (
-  data: PostHubspotWebhooksCreateCompanyData = {}
-): CancelablePromise<PostHubspotWebhooksCreateCompanyResponse> => {
-  return __request(OpenAPI, {
+export const postHubspotWebhooksCreateCompany = (data: PostHubspotWebhooksCreateCompanyData = {}): CancelablePromise<PostHubspotWebhooksCreateCompanyResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/hubspot/webhooks/create-company',
     body: data.requestBody,
     mediaType: 'application/json',
     errors: {
-      400: 'Bad Request',
-      500: 'Internal Server Error',
-    },
-  });
-};
+        400: 'Bad Request',
+        500: 'Internal Server Error'
+    }
+}); };
 
 /**
  * Get candidate chat history
@@ -971,20 +725,16 @@ export const postHubspotWebhooksCreateCompany = (
  * @returns unknown Chat history retrieved successfully
  * @throws ApiError
  */
-export const getChatCandidate = (
-  data: GetChatCandidateData
-): CancelablePromise<GetChatCandidateResponse> => {
-  return __request(OpenAPI, {
+export const getChatCandidate = (data: GetChatCandidateData): CancelablePromise<GetChatCandidateResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/chat/candidate',
     query: {
-      survey_result_id: data.surveyResultId,
+        survey_result_id: data.surveyResultId
     },
     errors: {
-      404: 'Chat not found',
-    },
-  });
-};
+        404: 'Chat not found'
+    }
+}); };
 
 /**
  * Save chat feedback
@@ -994,16 +744,12 @@ export const getChatCandidate = (
  * @returns unknown Feedback saved successfully
  * @throws ApiError
  */
-export const postChatFeedback = (
-  data: PostChatFeedbackData = {}
-): CancelablePromise<PostChatFeedbackResponse> => {
-  return __request(OpenAPI, {
+export const postChatFeedback = (data: PostChatFeedbackData = {}): CancelablePromise<PostChatFeedbackResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/chat/feedback',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Send a chat message
@@ -1013,16 +759,12 @@ export const postChatFeedback = (
  * @returns unknown Chat message sent successfully
  * @throws ApiError
  */
-export const postChatSend = (
-  data: PostChatSendData = {}
-): CancelablePromise<PostChatSendResponse> => {
-  return __request(OpenAPI, {
+export const postChatSend = (data: PostChatSendData = {}): CancelablePromise<PostChatSendResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/chat/send',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Save resume analysis feedback
@@ -1032,16 +774,12 @@ export const postChatSend = (
  * @returns unknown Feedback saved successfully
  * @throws ApiError
  */
-export const postCandidatesResumeAnalysisFeedback = (
-  data: PostCandidatesResumeAnalysisFeedbackData = {}
-): CancelablePromise<PostCandidatesResumeAnalysisFeedbackResponse> => {
-  return __request(OpenAPI, {
+export const postCandidatesResumeAnalysisFeedback = (data: PostCandidatesResumeAnalysisFeedbackData = {}): CancelablePromise<PostCandidatesResumeAnalysisFeedbackResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/candidates/resume-analysis/feedback',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Calculate blended right seat score
@@ -1051,16 +789,12 @@ export const postCandidatesResumeAnalysisFeedback = (
  * @returns unknown Score calculated successfully
  * @throws ApiError
  */
-export const postCandidatesScoringCalculate = (
-  data: PostCandidatesScoringCalculateData = {}
-): CancelablePromise<PostCandidatesScoringCalculateResponse> => {
-  return __request(OpenAPI, {
+export const postCandidatesScoringCalculate = (data: PostCandidatesScoringCalculateData = {}): CancelablePromise<PostCandidatesScoringCalculateResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/candidates/scoring/calculate',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Get blended right seat scores
@@ -1070,17 +804,13 @@ export const postCandidatesScoringCalculate = (
  * @returns unknown Scores retrieved successfully
  * @throws ApiError
  */
-export const getCandidatesScoringScores = (
-  data: GetCandidatesScoringScoresData
-): CancelablePromise<GetCandidatesScoringScoresResponse> => {
-  return __request(OpenAPI, {
+export const getCandidatesScoringScores = (data: GetCandidatesScoringScoresData): CancelablePromise<GetCandidatesScoringScoresResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/candidates/scoring/scores',
     query: {
-      surveyResultId: data.surveyResultId,
-    },
-  });
-};
+        surveyResultId: data.surveyResultId
+    }
+}); };
 
 /**
  * Search trait scale mapping reports
@@ -1098,25 +828,21 @@ export const getCandidatesScoringScores = (
  * @returns unknown Successfully retrieved trait scale mapping reports
  * @throws ApiError
  */
-export const getTraitScaleMappingsReportsSearch = (
-  data: GetTraitScaleMappingsReportsSearchData = {}
-): CancelablePromise<GetTraitScaleMappingsReportsSearchResponse> => {
-  return __request(OpenAPI, {
+export const getTraitScaleMappingsReportsSearch = (data: GetTraitScaleMappingsReportsSearchData = {}): CancelablePromise<GetTraitScaleMappingsReportsSearchResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/trait-scale-mappings/reports/search',
     query: {
-      limit: data.limit,
-      page: data.page,
-      sort_by: data.sortBy,
-      order_by: data.orderBy,
-      include_archived: data.includeArchived,
-      include_tests: data.includeTests,
-      search: data.search,
-      uuid: data.uuid,
-      is_active: data.isActive,
-    },
-  });
-};
+        limit: data.limit,
+        page: data.page,
+        sort_by: data.sortBy,
+        order_by: data.orderBy,
+        include_archived: data.includeArchived,
+        include_tests: data.includeTests,
+        search: data.search,
+        uuid: data.uuid,
+        is_active: data.isActive
+    }
+}); };
 
 /**
  * Create a new trait scale mapping report
@@ -1126,16 +852,12 @@ export const getTraitScaleMappingsReportsSearch = (
  * @returns TraitScaleMappingReport Successfully created the trait scale mapping report
  * @throws ApiError
  */
-export const postTraitScaleMappingsReports = (
-  data: PostTraitScaleMappingsReportsData = {}
-): CancelablePromise<PostTraitScaleMappingsReportsResponse> => {
-  return __request(OpenAPI, {
+export const postTraitScaleMappingsReports = (data: PostTraitScaleMappingsReportsData = {}): CancelablePromise<PostTraitScaleMappingsReportsResponse> => { return __request(OpenAPI, {
     method: 'POST',
     url: '/trait-scale-mappings/reports',
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
 
 /**
  * Get a trait scale mapping report by ID
@@ -1145,17 +867,13 @@ export const postTraitScaleMappingsReports = (
  * @returns TraitScaleMappingReport Successfully retrieved the trait scale mapping report
  * @throws ApiError
  */
-export const getTraitScaleMappingsReportsById = (
-  data: GetTraitScaleMappingsReportsByIdData
-): CancelablePromise<GetTraitScaleMappingsReportsByIdResponse> => {
-  return __request(OpenAPI, {
+export const getTraitScaleMappingsReportsById = (data: GetTraitScaleMappingsReportsByIdData): CancelablePromise<GetTraitScaleMappingsReportsByIdResponse> => { return __request(OpenAPI, {
     method: 'GET',
     url: '/trait-scale-mappings/reports/{id}',
     path: {
-      id: data.id,
-    },
-  });
-};
+        id: data.id
+    }
+}); };
 
 /**
  * Update an existing trait scale mapping report
@@ -1166,16 +884,12 @@ export const getTraitScaleMappingsReportsById = (
  * @returns TraitScaleMappingReport Successfully updated the trait scale mapping report
  * @throws ApiError
  */
-export const putTraitScaleMappingsReportsById = (
-  data: PutTraitScaleMappingsReportsByIdData
-): CancelablePromise<PutTraitScaleMappingsReportsByIdResponse> => {
-  return __request(OpenAPI, {
+export const putTraitScaleMappingsReportsById = (data: PutTraitScaleMappingsReportsByIdData): CancelablePromise<PutTraitScaleMappingsReportsByIdResponse> => { return __request(OpenAPI, {
     method: 'PUT',
     url: '/trait-scale-mappings/reports/{id}',
     path: {
-      id: data.id,
+        id: data.id
     },
     body: data.requestBody,
-    mediaType: 'application/json',
-  });
-};
+    mediaType: 'application/json'
+}); };
