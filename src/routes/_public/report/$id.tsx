@@ -1,8 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { usePublicCodeQuery } from '@/hooks/query/codes/use-public-code-query';
+import {
+  calculateReportService,
+  parseE3Scales21,
+  type Threshold,
+  type TraitScaleMappingReport,
+} from '@/services/calculate-report';
 import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeftIcon, ChevronRightIcon, PrinterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
+import { useMemo } from 'react';
 import { SummaryTabContent, SummaryTabHeader } from './-components/summary-tab';
 import { Tabs } from './-components/tabs';
 
@@ -15,18 +22,28 @@ function RouteComponent() {
 
   const { data: codeData, isLoading: isCodeLoading } = usePublicCodeQuery({ id });
 
-  // eslint-disable-next-line no-console
-  console.log(codeData);
+  const calculatedReport = useMemo(() => {
+    if (!codeData) return null;
+    const parsedScores = parseE3Scales21(codeData.surveyResult.e3_scales21);
+    if (!parsedScores) return null;
+    return calculateReportService({
+      report: codeData.traitScaleMappingsReport as TraitScaleMappingReport,
+      scores: parsedScores,
+      thresholds: codeData.traitScaleMappingsReport.thresholds as Threshold[],
+    });
+  }, [codeData]);
 
-  const tabs = [
-    { key: 'summary', label: 'Summary' },
-    { key: 'identity', label: 'Identity' },
-    { key: 'motive', label: 'Motive' },
-    { key: 'traits', label: 'Traits' },
-    { key: 'emotion', label: 'Emotion' },
-    { key: 'intellect', label: 'Intellect' },
-    { key: 'behavior', label: 'Behavior' },
-  ];
+  const tabs = useMemo(() => {
+    const defaultTabs = [
+      { key: 'summary', label: 'Summary' },
+      { key: 'identity', label: 'Identity' },
+    ];
+    if (!calculatedReport) return defaultTabs;
+    return [
+      ...defaultTabs,
+      ...Object.keys(calculatedReport).map(key => ({ key: `section-${key}`, label: key })),
+    ];
+  }, [calculatedReport]);
 
   const [activeTab, setActiveTab] = useQueryState('tab', {
     defaultValue: tabs[0].key,

@@ -18,7 +18,7 @@
     "start": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "gen:bees-api": "openapi-ts -i https://ah3v0jmuob.execute-api.us-east-1.amazonaws.com/openapi.json -o src/data/bees",
+    "gen:bees-api": "openapi-ts -i https://s3ij5uaxlf.execute-api.us-east-1.amazonaws.com/openapi.json -o src/data/bees",
     "gen:core-api-v2": "openapi-ts -i https://dev-api-bescoring-v2.hirebus.com/openapi.json -o src/data/core-api-v2",
     "gen:data": "concurrently \"pnpm gen:core-api-v2\" \"pnpm gen:bees-api\"",
     "lint": "eslint . --ext .ts,.tsx",

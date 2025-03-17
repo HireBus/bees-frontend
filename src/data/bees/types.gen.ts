@@ -56,6 +56,21 @@ export type GetPublicCodesResponse = {
         email: string;
         e3_scales21: string | null;
     };
+    traitScaleMappingsReport: {
+        id: number;
+        created_at: string;
+        updated_at: string;
+        archived_at: string | null;
+        is_test: boolean;
+        name: string;
+        description: string | null;
+        is_active: boolean;
+        uuid: string;
+        strong_weight: number | null;
+        moderate_weight: number | null;
+        thresholds?: unknown;
+        sections?: unknown;
+    };
 };
 
 export type GetCodesSearchData = {
@@ -161,6 +176,21 @@ export type $OpenApiTs = {
                         last: string;
                         email: string;
                         e3_scales21: string | null;
+                    };
+                    traitScaleMappingsReport: {
+                        id: number;
+                        created_at: string;
+                        updated_at: string;
+                        archived_at: string | null;
+                        is_test: boolean;
+                        name: string;
+                        description: string | null;
+                        is_active: boolean;
+                        uuid: string;
+                        strong_weight: number | null;
+                        moderate_weight: number | null;
+                        thresholds?: unknown;
+                        sections?: unknown;
                     };
                 };
             };
