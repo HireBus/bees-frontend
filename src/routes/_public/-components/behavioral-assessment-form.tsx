@@ -62,7 +62,7 @@ export function BehavioralAssessmentForm() {
         return;
       }
 
-      toastClient.error('Invalid access code', {
+      toastClient.error('Something went wrong', {
         description: 'Please check your access code and try again.',
       });
     }

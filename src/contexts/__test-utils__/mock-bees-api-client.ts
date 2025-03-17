@@ -6,4 +6,6 @@ export const mockBeesApiClient = {
   getCodesSearch: vi.fn(),
   postCodesGenerate: vi.fn(),
   getCodesValidate: vi.fn(),
+  postAssessmentsSubmit: vi.fn(),
+  getPublicCodes: vi.fn(),
 } satisfies BeesApiClientContextState;

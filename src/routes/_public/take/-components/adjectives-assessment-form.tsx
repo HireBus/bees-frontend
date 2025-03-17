@@ -1,6 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormField, FormItem } from '@/components/ui/form';
+import { useToastClientContext } from '@/contexts/toast-client';
+import { useSubmitAssessmentMutation } from '@/hooks/query/assessments/use-submit-assessment-mutation';
 import { cn } from '@/lib/utils';
+import { parseError } from '@/utils/error-parser';
+import { useNavigate } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import {
   type ControllerRenderProps,
@@ -14,10 +18,63 @@ import { getShuffledAdjectives } from '../-utils/adjectives';
 export function AdjectivesAssessmentForm() {
   const adjectives = useMemo(getShuffledAdjectives, []);
   const form = useForm();
-  const updateUser = useAssessmentUserStore(state => state.updateUser);
+  const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FieldValues> = async () => {
-    updateUser({ surveyResultId: 'asdfasdf' });
+  const actions = useAssessmentUserStore(state => ({
+    reset: state.reset,
+    resetProgress: state.resetProgress,
+    runProgressUpTo: state.runProgressUpTo,
+  }));
+  const user = useAssessmentUserStore(state => state.user);
+  const toastClient = useToastClientContext();
+
+  const { mutate: submitAssessment, isPending: isSubmitting } = useSubmitAssessmentMutation({
+    onMutate: () => {
+      actions.runProgressUpTo(100);
+    },
+    onSuccess: data => {
+      useAssessmentUserStore.persist.clearStorage();
+      setTimeout(() => {
+        navigate({ to: '/report/$id', params: { id: data.code.id } });
+      }, 1000);
+    },
+    onError: err => {
+      actions.resetProgress();
+      const error = parseError(err);
+
+      if (error.name === 'ConflictError') {
+        toastClient.error('Invalid access code', { description: error.message });
+        return;
+      }
+
+      toastClient.error('Something went wrong', {
+        description: error.message,
+      });
+    },
+  });
+
+  const onSubmit: SubmitHandler<FieldValues> = async data => {
+    if (!user) return;
+
+    const checkedAdjectives = processCheckedValues(data);
+
+    if (checkedAdjectives.length < 30) {
+      toastClient.error('Please select at least 30 words.');
+      return;
+    }
+
+    submitAssessment({
+      requestBody: {
+        code: user.accessCode,
+        optInCommunication: user.agreeToComms,
+        adjectiveNumbers: checkedAdjectives,
+        email: user.email,
+        first: user.firstName,
+        last: user.lastName,
+        role: user.jobTitle,
+        companySlug: user.organization,
+      },
+    });
   };
 
   return (
@@ -41,8 +98,8 @@ export function AdjectivesAssessmentForm() {
           ))}
         </div>
 
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? 'Submitting' : 'Submit'}
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Submitting' : 'Submit'}
         </Button>
       </form>
     </Form>
@@ -79,3 +136,10 @@ export function AdjectiveCheckbox({ children, field, onClick }: AdjectiveCheckbo
     </label>
   );
 }
+
+export const processCheckedValues = (data: FieldValues) => {
+  return Object.entries(data)
+    .filter(([, value]) => Boolean(value))
+    .map(([value]) => Number(value))
+    .filter(Number);
+};

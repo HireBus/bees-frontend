@@ -11,6 +11,8 @@ export function makeFakeCode(overrides?: Partial<Code>): Code {
     code_used_at: null,
     code_batch_id: uuidv4(),
     code_used_by_id: null,
+    opt_in_communications: 0,
+    opt_in_communications_at: null,
     ...overrides,
   } satisfies Code;
 }

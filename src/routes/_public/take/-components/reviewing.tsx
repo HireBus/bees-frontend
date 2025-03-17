@@ -1,10 +1,21 @@
 import reviewAnimation from '@/assets/review-animation.json';
 import { Progress } from '@/components/ui/progress';
+import { cn } from '@/lib/utils';
 import Lottie from 'lottie-react';
 
-export function Reviewing() {
+export type ReviewingProps = {
+  progress: number;
+  className?: string;
+};
+
+export function Reviewing({ progress, className }: ReviewingProps) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center px-5 pb-20 pt-40 text-center">
+    <div
+      className={cn(
+        'flex h-full w-full flex-col items-center justify-center px-5 pb-20 pt-40 text-center',
+        className
+      )}
+    >
       {/* Newton's cradle animation */}
       <div className="mb-6 mt-4">
         <div className="mx-auto flex w-full max-w-[227px] items-center justify-center">
@@ -25,7 +36,7 @@ export function Reviewing() {
 
       {/* Progress bar using shadcn Progress component */}
       <div className="w-full max-w-[340px]">
-        <Progress value={30} className="h-2 bg-[#F4F4F5]" />
+        <Progress value={progress} className="h-2 bg-[#F4F4F5]" />
       </div>
     </div>
   );

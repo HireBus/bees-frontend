@@ -16,7 +16,6 @@ interface TabsProps {
 export function Tabs({ items, defaultActiveTab, className }: TabsProps) {
   const [activeTab, setActiveTab] = useQueryState('tab', {
     defaultValue: defaultActiveTab ?? items[0].key,
-    clearOnDefault: false,
   });
 
   const handleTabChange = (value: string) => {

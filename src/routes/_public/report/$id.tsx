@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { usePublicCodeQuery } from '@/hooks/query/codes/use-public-code-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeftIcon, ChevronRightIcon, PrinterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
@@ -10,10 +11,12 @@ export const Route = createFileRoute('/_public/report/$id')({
 });
 
 function RouteComponent() {
-  // Will use id param in the future
-  // const { id } = Route.useParams();
+  const { id } = Route.useParams();
 
-  const [activeTab, setActiveTab] = useQueryState('tab');
+  const { data: codeData, isLoading: isCodeLoading } = usePublicCodeQuery({ id });
+
+  // eslint-disable-next-line no-console
+  console.log(codeData);
 
   const tabs = [
     { key: 'summary', label: 'Summary' },
@@ -24,6 +27,10 @@ function RouteComponent() {
     { key: 'intellect', label: 'Intellect' },
     { key: 'behavior', label: 'Behavior' },
   ];
+
+  const [activeTab, setActiveTab] = useQueryState('tab', {
+    defaultValue: tabs[0].key,
+  });
 
   const currentTabIndex = tabs.findIndex(tab => tab.key === activeTab);
   const prevTab = currentTabIndex > 0 ? tabs[currentTabIndex - 1] : null;
@@ -43,47 +50,51 @@ function RouteComponent() {
 
   return (
     <div className="flex h-full w-full flex-col px-5 pb-20 pt-40">
-      <div className="mx-auto max-w-[1200px] px-6">
-        <div className="flex items-start justify-between py-10">
-          {activeTab === 'summary' && <SummaryTabHeader />}
-          <Button variant="outline" color="primary">
-            <PrinterIcon className="h-4 w-4" />
-            Print Report
-          </Button>
-        </div>
+      {isCodeLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <div className="mx-auto max-w-[1200px] px-6">
+          <div className="flex items-start justify-between py-10">
+            {activeTab === 'summary' && <SummaryTabHeader />}
+            <Button variant="outline" color="primary">
+              <PrinterIcon className="h-4 w-4" />
+              Print Report
+            </Button>
+          </div>
 
-        <Tabs items={tabs} />
+          <Tabs items={tabs} />
 
-        {activeTab === 'summary' && <SummaryTabContent />}
+          {activeTab === 'summary' && <SummaryTabContent />}
 
-        {/* Page Number */}
-        <div className="mt-12 flex items-center gap-4 pb-8">
-          <p className="text-sm text-secondary-content">
-            {currentTabIndex + 1} of {tabs.length}
-          </p>
-          <div className="flex items-center gap-4">
-            {prevTab && (
-              <>
+          {/* Page Number */}
+          <div className="mt-12 flex items-center gap-4 pb-8">
+            <p className="text-sm text-secondary-content">
+              {currentTabIndex + 1} of {tabs.length}
+            </p>
+            <div className="flex items-center gap-4">
+              {prevTab && (
+                <>
+                  <button
+                    className="flex items-center gap-1 text-sm font-medium text-primary-content"
+                    onClick={handlePrevTab}
+                  >
+                    <ChevronLeftIcon className="h-4 w-4" /> {prevTab.label}
+                  </button>
+                  {nextTab && <span className="text-sm font-medium text-primary-content">|</span>}
+                </>
+              )}
+              {nextTab && (
                 <button
                   className="flex items-center gap-1 text-sm font-medium text-primary-content"
-                  onClick={handlePrevTab}
+                  onClick={handleNextTab}
                 >
-                  <ChevronLeftIcon className="h-4 w-4" /> {prevTab.label}
+                  {nextTab.label} <ChevronRightIcon className="h-4 w-4" />
                 </button>
-                <span className="text-sm font-medium text-primary-content">|</span>
-              </>
-            )}
-            {nextTab && (
-              <button
-                className="flex items-center gap-1 text-sm font-medium text-primary-content"
-                onClick={handleNextTab}
-              >
-                {nextTab.label} <ChevronRightIcon className="h-4 w-4" />
-              </button>
-            )}
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
