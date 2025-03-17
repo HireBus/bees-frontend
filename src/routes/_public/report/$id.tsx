@@ -73,7 +73,7 @@ function RouteComponent() {
   return (
     <div className="flex h-full w-full flex-col px-5 pb-20 pt-40">
       {isCodeLoading ? (
-        <div>Loading...</div>
+        <div className="flex h-full w-full items-center justify-center">Loading...</div>
       ) : (
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="flex items-start justify-between py-10">

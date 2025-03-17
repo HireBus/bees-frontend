@@ -81,7 +81,13 @@ export function SummaryTabContent({ categories, calculatedReports }: SummaryTabC
                   <tr key={category}>
                     <td className="px-6 py-4 text-xl font-bold text-primary-content">{category}</td>
                     <td className="px-6 py-4 font-light">{calculatedReport[0].traitName}</td>
-                    <td className="px-6 py-4 font-light">{calculatedReport[0].overrideContent}</td>
+                    <td className="px-6 py-4 font-light">
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: calculatedReport[0].overrideContent ?? '',
+                        }}
+                      />
+                    </td>
                   </tr>
                 );
               })}
