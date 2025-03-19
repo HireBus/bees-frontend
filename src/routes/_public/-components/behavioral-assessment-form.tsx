@@ -17,7 +17,7 @@ const behavioralAssessmentSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email' }).toLowerCase(),
   jobTitle: z.string().min(1, { message: 'Job title is required' }),
   organization: z.string().min(1, { message: 'Organization is required' }),
-  accessCode: z.string().min(1, { message: 'Access code is required' }).toUpperCase(),
+  accessCode: z.string().min(1, { message: 'Access code is required' }).toUpperCase().trim(),
   agreeToComms: z.boolean().refine(value => value === true, {
     message: 'You must agree to receive communication messages',
   }),
