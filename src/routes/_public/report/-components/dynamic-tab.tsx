@@ -1,4 +1,5 @@
 import { Progress } from '@/components/ui/progress';
+import { Separator } from '@/components/ui/separator';
 import {
   type ThresholdOverrideAction,
   type TraitScaleMappingReport,
@@ -63,6 +64,7 @@ export function DynamicTabContent({
           ))}
         {isConsolidateAttributeActions && (
           <>
+            <Separator />
             <h2 className="mt-8 text-xl font-bold text-primary-content">
               {yourAttributesLabel} Blindspots
             </h2>
@@ -110,7 +112,10 @@ export function AttributeItem({
       />
 
       {!isConsolidateAttributeActions && (
-        <AttributeItemActions actions={attribute.overrideActions} />
+        <>
+          <AttributeItemActions actions={attribute.overrideActions} />
+          <Separator className="mt-10" />
+        </>
       )}
     </div>
   );
