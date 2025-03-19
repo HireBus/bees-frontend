@@ -10,7 +10,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeftIcon, ChevronRightIcon, PrinterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { useMemo } from 'react';
-import { TraitsTabContent } from './-components/blindspot/traits-tab';
+import { DynamicTabContent } from './-components/dynamic-tab';
 import { IdentityTabContent } from './-components/identity-tab';
 import { SummaryTabContent } from './-components/summary-tab';
 import { Tabs } from './-components/tabs';
@@ -81,6 +81,38 @@ function RouteComponent() {
 
   // TODO: When the report type is added in the database, we should use it here
   const reportType = REPORT_TYPES.blindspot;
+  const dynamicTabOptions = useMemo(() => {
+    if (reportType !== REPORT_TYPES.blindspot || !activeDynamicTab) return null;
+
+    if (activeDynamicTab.toLowerCase().includes('emotion')) {
+      return {
+        attributesCount: 1,
+        isConsolidateAttributeActions: true,
+      };
+    }
+
+    if (activeDynamicTab.toLowerCase().includes('trait')) {
+      return {
+        attributesCount: 2,
+        isConsolidateAttributeActions: false,
+      };
+    }
+
+    if (activeDynamicTab.toLowerCase().includes('intellect')) {
+      return {
+        isConsolidateAttributeActions: true,
+      };
+    }
+
+    if (activeDynamicTab.toLowerCase().includes('behavior')) {
+      return {
+        attributesCount: 1,
+        isConsolidateAttributeActions: false,
+      };
+    }
+
+    return null;
+  }, [activeDynamicTab, reportType]);
 
   return (
     <div className="flex h-full w-full flex-col px-5 pb-20 pt-40">
@@ -113,25 +145,21 @@ function RouteComponent() {
           )}
 
           {activeDynamicTab &&
-            summaryReport?.categories.map(category => {
-              const calculatedReport = summaryReport?.calculatedReports[category];
+            summaryReport?.categories
+              .filter(category => category.toLowerCase().includes(activeDynamicTab.toLowerCase()))
+              .map(category => {
+                const calculatedReport = summaryReport?.calculatedReports[category];
 
-              if (
-                reportType === REPORT_TYPES.blindspot &&
-                activeDynamicTab.toLowerCase() === category.toLowerCase() &&
-                category.toLowerCase().includes('trait')
-              ) {
                 return (
-                  <TraitsTabContent
+                  <DynamicTabContent
                     key={category}
                     thresholds={codeData?.traitScaleMappingsReport.thresholds as Threshold[]}
                     calculatedReport={calculatedReport ?? []}
+                    attributesCount={dynamicTabOptions?.attributesCount}
+                    isConsolidateAttributeActions={dynamicTabOptions?.isConsolidateAttributeActions}
                   />
                 );
-              }
-
-              return null;
-            })}
+              })}
 
           {/* Page Number */}
           <div className="mt-12 flex items-center gap-4 pb-8">
