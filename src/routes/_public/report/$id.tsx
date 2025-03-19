@@ -10,12 +10,17 @@ import { createFileRoute } from '@tanstack/react-router';
 import { ChevronLeftIcon, ChevronRightIcon, PrinterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { useMemo } from 'react';
-import { SummaryTabContent, SummaryTabHeader } from './-components/summary-tab';
+import { TraitsTabContent } from './-components/blindspot/traits-tab';
+import { SummaryTabContent } from './-components/summary-tab';
 import { Tabs } from './-components/tabs';
 
 export const Route = createFileRoute('/_public/report/$id')({
   component: RouteComponent,
 });
+
+const REPORT_TYPES = {
+  blindspot: 'blindspot',
+} as const;
 
 function RouteComponent() {
   const { id } = Route.useParams();
@@ -70,6 +75,9 @@ function RouteComponent() {
     }
   };
 
+  // TODO: When the report type is added in the database, we should use it here
+  const reportType = REPORT_TYPES.blindspot;
+
   return (
     <div className="flex h-full w-full flex-col px-5 pb-20 pt-40">
       {isCodeLoading ? (
@@ -77,12 +85,10 @@ function RouteComponent() {
       ) : (
         <div className="mx-auto max-w-[1200px] px-6">
           <div className="flex items-start justify-between py-10">
-            {activeTab === 'summary' && (
-              <SummaryTabHeader
-                title={codeData?.traitScaleMappingsReport.name ?? ''}
-                description={codeData?.traitScaleMappingsReport.description ?? ''}
-              />
-            )}
+            <ReportHeader
+              title={codeData?.traitScaleMappingsReport.name ?? ''}
+              description={codeData?.traitScaleMappingsReport.description ?? ''}
+            />
             <Button variant="outline" color="primary">
               <PrinterIcon className="h-4 w-4" />
               Print Report
@@ -97,6 +103,22 @@ function RouteComponent() {
               categories={summaryReport?.categories ?? []}
             />
           )}
+
+          {summaryReport?.categories.map(category => {
+            const calculatedReport = summaryReport?.calculatedReports[category];
+
+            if (reportType === REPORT_TYPES.blindspot && category.toLowerCase().includes('trait')) {
+              return (
+                <TraitsTabContent
+                  key={category}
+                  thresholds={codeData?.traitScaleMappingsReport.thresholds as Threshold[]}
+                  calculatedReport={calculatedReport ?? []}
+                />
+              );
+            }
+
+            return null;
+          })}
 
           {/* Page Number */}
           <div className="mt-12 flex items-center gap-4 pb-8">
@@ -127,6 +149,20 @@ function RouteComponent() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+export type ReportHeaderProps = {
+  title: string;
+  description: string;
+};
+
+function ReportHeader({ title, description }: ReportHeaderProps) {
+  return (
+    <div>
+      <h1 className="text-[36px] font-bold text-primary-content">{title}</h1>
+      <p className="mt-2 font-light text-secondary-content">{description}</p>
     </div>
   );
 }

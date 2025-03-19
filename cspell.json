@@ -1,7 +1,17 @@
 {
   "version": "0.2",
   "language": "en",
-  "words": ["commitlint", "degit", "Nuqs", "pnpm", "tanstack", "Todos", "zustand"],
+  "words": [
+    "blindspot",
+    "Blindspots",
+    "commitlint",
+    "degit",
+    "Nuqs",
+    "pnpm",
+    "tanstack",
+    "Todos",
+    "zustand"
+  ],
   "ignorePaths": [
     "node_modules/",
     "dist/",

@@ -1,20 +1,6 @@
 import ChartSvg from '@/assets/chart.svg?react';
 import { type calculateReportService } from '@/services/calculate-report';
 
-export type SummaryTabHeaderProps = {
-  title: string;
-  description: string;
-};
-
-export function SummaryTabHeader({ title, description }: SummaryTabHeaderProps) {
-  return (
-    <div>
-      <h1 className="text-[36px] font-bold text-primary-content">{title}</h1>
-      <p className="mt-2 font-light text-secondary-content">{description}</p>
-    </div>
-  );
-}
-
 export type SummaryTabContentProps = {
   categories: string[];
   calculatedReports: ReturnType<typeof calculateReportService>;

@@ -58,6 +58,7 @@ export type TraitScaleMappingReport = Omit<
 };
 
 export interface CalculationResult {
+  category: Section;
   traitName: string;
   score: number;
   thresholdLabel: string | null;
@@ -140,6 +141,7 @@ export function calculateReportService({
       }
 
       results[section.name]?.push({
+        category: section,
         traitName: trait.name,
         score: finalScore,
         thresholdLabel: matched ? matched.label : null,
