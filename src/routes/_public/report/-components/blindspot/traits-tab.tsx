@@ -16,15 +16,17 @@ export type TraitsTabContentProps = {
 export function TraitsTabContent({ thresholds, calculatedReport }: TraitsTabContentProps) {
   return (
     <div className="mt-12">
-      <h1 className="text-2xl font-bold text-primary-content">
-        {calculatedReport[0].category.name}
-      </h1>
-      <p
-        className="font-light text-secondary-content"
-        dangerouslySetInnerHTML={{
-          __html: calculatedReport[0].category.description,
-        }}
-      />
+      <div className="flex flex-col gap-3">
+        <h1 className="text-2xl font-bold text-primary-content">
+          {calculatedReport[0].category.name}
+        </h1>
+        <p
+          className="font-light text-secondary-content"
+          dangerouslySetInnerHTML={{
+            __html: calculatedReport[0].category.description,
+          }}
+        />
+      </div>
 
       <h2 className="mt-8 text-xl font-bold text-primary-content">Your Traits Blindspots</h2>
 

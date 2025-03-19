@@ -11,6 +11,7 @@ import { ChevronLeftIcon, ChevronRightIcon, PrinterIcon } from 'lucide-react';
 import { useQueryState } from 'nuqs';
 import { useMemo } from 'react';
 import { TraitsTabContent } from './-components/blindspot/traits-tab';
+import { IdentityTabContent } from './-components/identity-tab';
 import { SummaryTabContent } from './-components/summary-tab';
 import { Tabs } from './-components/tabs';
 
@@ -105,6 +106,10 @@ function RouteComponent() {
               calculatedReports={summaryReport?.calculatedReports ?? {}}
               categories={summaryReport?.categories ?? []}
             />
+          )}
+
+          {activeTab === 'identity' && (
+            <IdentityTabContent firstName={codeData?.surveyResult.first ?? ''} />
           )}
 
           {activeDynamicTab &&

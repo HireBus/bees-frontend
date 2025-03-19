@@ -43,44 +43,52 @@ export function SummaryTabContent({ categories, calculatedReports }: SummaryTabC
       </div>
 
       {/* Second Row - Full Width Content */}
-      <div className="space--gap-14">
-        {/* Results Table */}
-        <div className="overflow-hidden rounded-lg border border-[#E4E4E7]">
-          <table className="w-full table-fixed">
-            <thead className="bg-[#CCF5F2]">
-              <tr>
-                <th className="w-[15%] px-6 py-4 text-left text-xl font-bold text-primary-content">
-                  Category
-                </th>
-                <th className="w-[25%] px-6 py-4 text-left text-xl font-bold text-primary-content">
-                  Your Blindspot
-                </th>
-                <th className="px-6 py-4 text-left text-xl font-bold text-primary-content">
-                  Summary
-                </th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#E4E4E7]">
-              {categories.map(category => {
-                const calculatedReport = calculatedReports[category];
-                return (
-                  <tr key={category}>
-                    <td className="px-6 py-4 text-xl font-bold text-primary-content">{category}</td>
-                    <td className="px-6 py-4 font-light">{calculatedReport[0].traitName}</td>
-                    <td className="px-6 py-4 font-light">
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: calculatedReport[0].overrideContent ?? '',
-                        }}
-                      />
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+      <div className="mt-14">
+        <ResultsTable categories={categories} calculatedReports={calculatedReports} />
       </div>
+    </div>
+  );
+}
+
+export type ResultsTableProps = {
+  categories: string[];
+  calculatedReports: ReturnType<typeof calculateReportService>;
+};
+
+export function ResultsTable({ categories, calculatedReports }: ResultsTableProps) {
+  return (
+    <div className="overflow-hidden rounded-lg border border-[#E4E4E7]">
+      <table className="w-full table-fixed">
+        <thead className="bg-[#CCF5F2]">
+          <tr>
+            <th className="w-[15%] px-6 py-4 text-left text-xl font-bold text-primary-content">
+              Category
+            </th>
+            <th className="w-[25%] px-6 py-4 text-left text-xl font-bold text-primary-content">
+              Your Blindspot
+            </th>
+            <th className="px-6 py-4 text-left text-xl font-bold text-primary-content">Summary</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-[#E4E4E7]">
+          {categories.map(category => {
+            const calculatedReport = calculatedReports[category];
+            return (
+              <tr key={category}>
+                <td className="px-6 py-4 text-xl font-bold text-primary-content">{category}</td>
+                <td className="px-6 py-4 font-light">{calculatedReport[0].traitName}</td>
+                <td className="px-6 py-4 font-light">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: calculatedReport[0].overrideContent ?? '',
+                    }}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
