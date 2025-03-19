@@ -119,7 +119,7 @@ function RouteComponent() {
       {isCodeLoading ? (
         <div className="flex h-full w-full items-center justify-center">Loading...</div>
       ) : (
-        <div className="mx-auto max-w-[1200px] px-6">
+        <div className="mx-auto w-full max-w-[1200px] px-6">
           <div className="flex items-start justify-between py-10">
             <ReportHeader
               title={codeData?.traitScaleMappingsReport.name ?? ''}
