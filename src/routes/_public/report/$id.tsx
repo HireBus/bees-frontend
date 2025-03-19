@@ -84,6 +84,12 @@ function RouteComponent() {
   const dynamicTabOptions = useMemo(() => {
     if (reportType !== REPORT_TYPES.blindspot || !activeDynamicTab) return null;
 
+    if (activeDynamicTab.toLowerCase().includes('motive')) {
+      return {
+        attributesCount: 1,
+      };
+    }
+
     if (activeDynamicTab.toLowerCase().includes('emotion')) {
       return {
         attributesCount: 1,
@@ -94,7 +100,6 @@ function RouteComponent() {
     if (activeDynamicTab.toLowerCase().includes('trait')) {
       return {
         attributesCount: 2,
-        isConsolidateAttributeActions: false,
       };
     }
 
@@ -107,7 +112,6 @@ function RouteComponent() {
     if (activeDynamicTab.toLowerCase().includes('behavior')) {
       return {
         attributesCount: 1,
-        isConsolidateAttributeActions: false,
       };
     }
 
