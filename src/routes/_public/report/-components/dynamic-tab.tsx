@@ -26,6 +26,10 @@ export function DynamicTabContent({
   const yourAttributesLabel = !isConsolidateAttributeActions
     ? `Your ${calculatedReport[0].category.name} Blindspots`
     : `Your ${calculatedReport[0].category.name}`;
+  const attributesToShow = calculatedReport
+    .filter(attribute => attribute.score !== null)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, attributesCount ? attributesCount : undefined);
 
   const consolidatedAttributesActions = (
     isConsolidateAttributeActions
@@ -50,18 +54,15 @@ export function DynamicTabContent({
       <h2 className="mt-8 text-xl font-bold text-primary-content">{yourAttributesLabel}</h2>
 
       <div className="mt-4 space-y-10">
-        {calculatedReport
-          .filter(attribute => attribute.score !== null)
-          .sort((a, b) => b.score - a.score)
-          .slice(0, attributesCount ? attributesCount : undefined)
-          .map((attribute, attributeIndex) => (
-            <AttributeItem
-              key={attributeIndex}
-              thresholds={thresholds}
-              attribute={attribute}
-              isConsolidateAttributeActions={isConsolidateAttributeActions}
-            />
-          ))}
+        {attributesToShow.map((attribute, attributeIndex) => (
+          <AttributeItem
+            key={attributeIndex}
+            thresholds={thresholds}
+            attribute={attribute}
+            isConsolidateAttributeActions={isConsolidateAttributeActions}
+            isLastAttribute={attributeIndex === attributesToShow.length - 1}
+          />
+        ))}
         {isConsolidateAttributeActions && (
           <>
             <Separator />
@@ -82,12 +83,14 @@ export type AttributeItemProps = {
     typeof calculateReportService
   >][number];
   isConsolidateAttributeActions: boolean;
+  isLastAttribute: boolean;
 };
 
 export function AttributeItem({
   thresholds,
   attribute,
   isConsolidateAttributeActions,
+  isLastAttribute,
 }: AttributeItemProps) {
   return (
     <div>
@@ -114,7 +117,7 @@ export function AttributeItem({
       {!isConsolidateAttributeActions && (
         <>
           <AttributeItemActions actions={attribute.overrideActions} />
-          <Separator className="mt-10" />
+          {!isLastAttribute && <Separator className="mt-10" />}
         </>
       )}
     </div>
