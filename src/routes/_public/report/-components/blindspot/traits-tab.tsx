@@ -51,6 +51,10 @@ export type AttributeItemProps = {
 export function AttributeItem({ thresholds, attribute }: AttributeItemProps) {
   const [actionsExpanded, setActionsExpanded] = useState(true);
 
+  const handleExpandActions = () => {
+    setActionsExpanded(!actionsExpanded);
+  };
+
   return (
     <div>
       <h3 className="mt-5 text-lg font-bold text-primary-content">{attribute.traitName}</h3>
@@ -72,14 +76,14 @@ export function AttributeItem({ thresholds, attribute }: AttributeItemProps) {
       {attribute.overrideActions && attribute.overrideActions.length > 0 && (
         <div className="mt-6 rounded-lg bg-[#F8F8FA] p-6">
           <button
-            onClick={() => setActionsExpanded(!actionsExpanded)}
-            className="flex items-center font-bold text-primary-content"
+            onClick={handleExpandActions}
+            className="flex w-full items-center justify-between font-bold text-primary-content"
           >
-            Actions{' '}
+            Actions
             {actionsExpanded ? (
-              <ChevronUp className="ml-2 h-5 w-5" />
+              <ChevronUp className="h-5 w-5" />
             ) : (
-              <ChevronDown className="ml-2 h-5 w-5" />
+              <ChevronDown className="h-5 w-5" />
             )}
           </button>
 
@@ -87,7 +91,7 @@ export function AttributeItem({ thresholds, attribute }: AttributeItemProps) {
             <div className="mt-4 space-y-6">
               {attribute.overrideActions.map((action, index) => (
                 <div key={index} className="flex gap-3">
-                  <div className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-sm border border-primary/20 bg-primary/10">
+                  <div className="mt-1 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border border-primary">
                     <Check className="h-3.5 w-3.5 text-primary" />
                   </div>
                   <div className="flex-1">

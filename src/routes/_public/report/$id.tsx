@@ -75,6 +75,9 @@ function RouteComponent() {
     }
   };
 
+  const isDefaultTab = activeTab === 'summary' || activeTab === 'identity';
+  const activeDynamicTab = isDefaultTab ? null : activeTab.split('-')[1];
+
   // TODO: When the report type is added in the database, we should use it here
   const reportType = REPORT_TYPES.blindspot;
 
@@ -104,21 +107,26 @@ function RouteComponent() {
             />
           )}
 
-          {summaryReport?.categories.map(category => {
-            const calculatedReport = summaryReport?.calculatedReports[category];
+          {activeDynamicTab &&
+            summaryReport?.categories.map(category => {
+              const calculatedReport = summaryReport?.calculatedReports[category];
 
-            if (reportType === REPORT_TYPES.blindspot && category.toLowerCase().includes('trait')) {
-              return (
-                <TraitsTabContent
-                  key={category}
-                  thresholds={codeData?.traitScaleMappingsReport.thresholds as Threshold[]}
-                  calculatedReport={calculatedReport ?? []}
-                />
-              );
-            }
+              if (
+                reportType === REPORT_TYPES.blindspot &&
+                activeDynamicTab.toLowerCase() === category.toLowerCase() &&
+                category.toLowerCase().includes('trait')
+              ) {
+                return (
+                  <TraitsTabContent
+                    key={category}
+                    thresholds={codeData?.traitScaleMappingsReport.thresholds as Threshold[]}
+                    calculatedReport={calculatedReport ?? []}
+                  />
+                );
+              }
 
-            return null;
-          })}
+              return null;
+            })}
 
           {/* Page Number */}
           <div className="mt-12 flex items-center gap-4 pb-8">
