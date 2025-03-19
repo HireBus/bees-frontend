@@ -130,7 +130,7 @@ export function AttributeItemActions({ actions }: AttributeItemActionsProps) {
   return (
     actions &&
     actions.length > 0 && (
-      <div className="mt-6 rounded-lg bg-[#F8F8FA] p-6">
+      <div className="mt-6 rounded-2xl bg-[#F8F8FA] p-6">
         <button
           onClick={handleExpandActions}
           className="flex w-full items-center justify-between font-bold text-primary-content"
