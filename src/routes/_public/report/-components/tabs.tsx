@@ -28,11 +28,11 @@ export function Tabs({ items, defaultActiveTab, className }: TabsProps) {
       <TabsUI
         value={activeTab}
         onValueChange={handleTabChange}
-        className={cn('relative h-12 w-full', className)}
+        className={cn('relative h-12 w-full md:h-full', className)}
       >
         <TabsList
           className={cn(
-            'absolute flex h-full w-full justify-stretch bg-transparent',
+            'absolute flex h-full w-full justify-stretch bg-transparent md:relative',
             // Desktop styles
             'md:h-14 md:justify-between md:gap-2 md:rounded-full md:bg-[#F5F6FF]'
           )}
