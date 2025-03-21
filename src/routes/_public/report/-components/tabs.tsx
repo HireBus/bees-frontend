@@ -1,3 +1,4 @@
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import { TabsList, TabsTrigger, Tabs as TabsUI } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { useQueryState } from 'nuqs';
@@ -23,26 +24,41 @@ export function Tabs({ items, defaultActiveTab, className }: TabsProps) {
   };
 
   return (
-    <TabsUI
-      value={activeTab}
-      onValueChange={handleTabChange}
-      className={cn('h-full max-h-[52px] w-full', className)}
-    >
-      <TabsList className="flex h-14 w-full justify-between gap-2 rounded-full bg-[#F5F6FF] p-0">
-        {items.map(item => (
-          <TabsTrigger
-            key={item.key}
-            value={item.key}
-            className={cn(
-              'h-full w-full rounded-full px-6 py-2.5 text-sm font-medium transition-all',
-              'data-[state=active]:rounded-full data-[state=active]:bg-primary data-[state=active]:font-bold data-[state=active]:text-white',
-              'data-[state=inactive]:font-light data-[state=inactive]:text-primary-content data-[state=inactive]:hover:bg-primary/5'
-            )}
-          >
-            {item.label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
-    </TabsUI>
+    <ScrollArea>
+      <TabsUI
+        value={activeTab}
+        onValueChange={handleTabChange}
+        className={cn('relative h-12 w-full', className)}
+      >
+        <TabsList
+          className={cn(
+            'absolute flex h-full w-full justify-stretch bg-transparent',
+            // Desktop styles
+            'md:h-14 md:justify-between md:gap-2 md:rounded-full md:bg-[#F5F6FF]'
+          )}
+        >
+          {items.map(item => (
+            <TabsTrigger
+              key={item.key}
+              value={item.key}
+              className={cn(
+                'relative h-full min-w-[120px] px-4 py-2 text-sm font-medium transition-all',
+                'after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-primary after:opacity-0 after:transition-opacity',
+                'data-[state=active]:after:opacity-100',
+                'data-[state=active]:font-bold data-[state=active]:text-primary',
+                'data-[state=inactive]:font-light data-[state=inactive]:text-primary-content',
+                // Desktop styles
+                'md:w-full md:rounded-full md:px-6 md:py-2.5',
+                'md:after:hidden md:data-[state=active]:bg-primary md:data-[state=active]:text-white',
+                'md:data-[state=inactive]:text-primary-content md:data-[state=inactive]:hover:bg-primary/5'
+              )}
+            >
+              {item.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </TabsUI>
+      <ScrollBar orientation="horizontal" className="hidden" />
+    </ScrollArea>
   );
 }

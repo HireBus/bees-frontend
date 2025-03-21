@@ -1,4 +1,5 @@
 import ChartSvg from '@/assets/chart.svg?react';
+import { Separator } from '@/components/ui/separator';
 import { type calculateReportService } from '@/services/calculate-report';
 
 export type SummaryTabContentProps = {
@@ -10,7 +11,7 @@ export function SummaryTabContent({ categories, calculatedReports }: SummaryTabC
   return (
     <div className="mt-12">
       {/* First Row - Equal Columns */}
-      <div className="mb-12 grid grid-cols-2 items-center gap-12">
+      <div className="mb-12 grid h-auto items-center gap-12 md:grid-cols-2">
         {/* How to Use Section */}
         <div className="flex flex-col gap-14">
           <div>
@@ -57,8 +58,9 @@ export type ResultsTableProps = {
 
 export function ResultsTable({ categories, calculatedReports }: ResultsTableProps) {
   return (
-    <div className="overflow-hidden rounded-lg border border-[#E4E4E7]">
-      <table className="w-full table-fixed">
+    <div className="overflow-hidden md:rounded-lg md:border md:border-[#E4E4E7]">
+      {/* Desktop Table */}
+      <table className="hidden w-full table-fixed md:block">
         <thead className="bg-[#CCF5F2]">
           <tr>
             <th className="w-[15%] px-6 py-4 text-left text-xl font-bold text-primary-content">
@@ -89,6 +91,39 @@ export function ResultsTable({ categories, calculatedReports }: ResultsTableProp
           })}
         </tbody>
       </table>
+      {/* Mobile Table */}
+      <div className="block md:hidden">
+        <div className="flex flex-col gap-6">
+          {categories.map(category => {
+            const calculatedReport = calculatedReports[category];
+            return (
+              <div key={category} className="flex flex-col gap-4 rounded-lg border p-4">
+                <div className="flex flex-col gap-1">
+                  <div className="font-light text-secondary-content">Category</div>
+                  <div className="text-lg font-bold text-primary-content">{category}</div>
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-1">
+                  <div className="font-light text-secondary-content">Your Blindspot</div>
+                  <div className="text-lg font-bold text-primary-content">
+                    {calculatedReport[0].traitName}
+                  </div>
+                </div>
+                <Separator />
+                <div className="flex flex-col gap-1">
+                  <div className="font-light text-secondary-content">Summary</div>
+                  <div
+                    className="font-light text-primary-content"
+                    dangerouslySetInnerHTML={{
+                      __html: calculatedReport[0].overrideContent ?? '',
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

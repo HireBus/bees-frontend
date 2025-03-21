@@ -123,13 +123,13 @@ function RouteComponent() {
       {isCodeLoading ? (
         <div className="flex h-full w-full items-center justify-center">Loading...</div>
       ) : (
-        <div className="mx-auto w-full max-w-[1200px] px-6">
+        <div className="mx-auto w-full max-w-[1200px]">
           <div className="flex items-start justify-between py-10">
             <ReportHeader
               title={codeData?.traitScaleMappingsReport.name ?? ''}
               description={codeData?.traitScaleMappingsReport.description ?? ''}
             />
-            <Button variant="outline" color="primary">
+            <Button className="hidden md:visible" variant="outline" color="primary">
               <PrinterIcon className="h-4 w-4" />
               Print Report
             </Button>
@@ -205,9 +205,9 @@ export type ReportHeaderProps = {
 
 function ReportHeader({ title, description }: ReportHeaderProps) {
   return (
-    <div>
-      <h1 className="text-[36px] font-bold text-primary-content">{title}</h1>
-      <p className="mt-2 font-light text-secondary-content">{description}</p>
+    <div className="text-center md:text-start">
+      <h1 className="text-2xl font-bold text-primary-content md:text-[36px]">{title}</h1>
+      <p className="md:text-md mt-2 text-sm font-light text-secondary-content">{description}</p>
     </div>
   );
 }
